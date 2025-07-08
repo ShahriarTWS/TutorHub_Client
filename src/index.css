@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+    name: "light";
+    default: true;
+
+  --color-primary: #6366F1;          /* Indigo-500 */
+  --color-primary-focus: #4F46E5;    /* Indigo-600 */
+  --color-primary-content: #ffffff;  /* White */
+
+  --color-secondary: #06B6D4;        /* Cyan-500 */
+  --color-secondary-focus: #0891B2;  /* Cyan-600 */
+  --color-secondary-content: #ffffff;/* White */
+
+  --color-accent: #F472B6;           /* Pink-400 */
+  --color-accent-focus: #EC4899;     /* Pink-500 */
+  --color-accent-content: #000000;   /* Black */
+
+  --color-neutral: #1E293B;          /* Slate-800 */
+  --color-neutral-focus: #0F172A;    /* Slate-900 */
+  --color-neutral-content: #ffffff;  /* White */
+
+  --color-base-100: #F0F0F0;         /* Slate-50 */
+  --color-base-200: #FFFFFF;         /* Slate-200 */
+  --color-base-300: #CBD5E1;         /* Slate-300 */
+  --color-base-content: #1E293B;     /* Slate-800 */
+
+  --color-info: #0EA5E9;             /* Sky-500 */
+  --color-success: #10B981;          /* Emerald-500 */
+  --color-warning: #F59E0B;          /* Amber-500 */
+  --color-error: #EF4444;            /* Red-500 */
+
+    --color-back-color: #F0F0F0;
+}
+
+
+@plugin "daisyui/theme" {
+name: "dark";
+
+  --color-primary: #8B9EFF;          /* Soft Indigo */
+  --color-primary-focus: #6366F1;    /* Indigo-500 */
+  --color-primary-content: #ffffff;  /* White */
+
+  --color-secondary: #22D3EE;        /* Cyan-400 */
+  --color-secondary-focus: #06B6D4;  /* Cyan-500 */
+  --color-secondary-content: #000000;/* Black */
+
+  --color-accent: #F9A8D4;           /* Pink-300 */
+  --color-accent-focus: #F472B6;     /* Pink-400 */
+  --color-accent-content: #000000;   /* Black */
+
+  --color-neutral: #1E293B;          /* Slate-800 */
+  --color-neutral-focus: #334155;    /* Slate-700 */
+  --color-neutral-content: #ffffff;  /* White */
+
+  --color-base-100: #0F172A;         /* Slate-900 */
+  --color-base-200: #1E293B;         /* Slate-800 */
+  --color-base-300: #334155;         /* Slate-700 */
+  --color-base-content: #E2E8F0;     /* Slate-200 */
+
+  --color-info: #38BDF8;             /* Sky-400 */
+  --color-success: #34D399;          /* Emerald-400 */
+  --color-warning: #FBBF24;          /* Amber-400 */
+  --color-error: #F87171;            /* Red-400 */
+
+  --color-back-color: #0F172A;         /* Match base-100 */
+}
+
+
+.pop-font {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.inter-font {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
