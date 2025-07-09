@@ -5,13 +5,17 @@ import SocialLogin from '../../../shared/SocialLogin/SocialLogin';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useAuth from '../../../hooks/useAuth';
 import axios from 'axios';
+import useAxios from '../../../hooks/useAxios';
+import Swal from 'sweetalert2';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [passwordValue, setPasswordValue] = useState('');
+    const [loading, setLoading] = useState(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const axiosInstance = useAxios();
 
     const password = watch('password'); // Watch password to match
 
@@ -19,7 +23,7 @@ const Register = () => {
 
 
     const onSubmit = async (data) => {
-        const imageFile = data.photoURL[0]; // ⬅️ File input
+        const imageFile = data.photoURL[0];
         if (!imageFile) {
             console.log("No image selected");
             return;
@@ -30,28 +34,54 @@ const Register = () => {
 
         const imgbbApiKey = import.meta.env.VITE_IMGBB_API_KEY;
 
+        setLoading(true); // Start loading
+
         try {
-            // 🔼 Step 1: Upload to ImgBB
+            // 1. Upload profile picture to ImgBB
             const imgbbResponse = await axios.post(
                 `https://api.imgbb.com/1/upload?key=${imgbbApiKey}`,
                 formData
             );
-
             const photoURL = imgbbResponse.data.data.display_url;
 
-            // 🔼 Step 2: Create Firebase user
+            // 2. Create Firebase user
             const result = await createUser(data.email, data.password);
 
-            // 🔼 Step 3: Update Firebase profile
+            // 3. Update Firebase profile
             await updateUserProfile(data.name, photoURL);
 
-            console.log("✅ User created and profile updated");
-            navigate('/');
+            // 4. Sync user to MongoDB
+            const userInfo = {
+                uid: result.user.uid,
+                name: data.name,
+                email: data.email,
+                photoURL: photoURL,
+            };
 
+            await axiosInstance.post('/users', userInfo);
+
+            // ✅ Show success alert
+            Swal.fire({
+                icon: 'success',
+                title: 'Registration Successful!',
+                showConfirmButton: false,
+                timer: 1500
+            });
+
+            navigate('/');
         } catch (error) {
             console.error("❌ Error during registration:", error);
+
+            // ❌ Show error alert
+            Swal.fire({
+                icon: 'error',
+                title: 'Registration Failed',
+                text: error.message || 'Something went wrong!',
+            });
         }
     };
+
+
 
 
     const getPasswordStrength = (password) => {
@@ -187,8 +217,8 @@ const Register = () => {
                     </div>
 
 
-                    <button type="submit" className="btn btn-primary w-full mt-2">
-                        Register
+                    <button type="submit" className="btn btn-primary w-full mt-2" disabled={loading}>
+                        {loading ? "Registering..." : "Register"}
                     </button>
                 </form>
 

@@ -4,6 +4,8 @@ import StudySessions from '../StudySessions/StudySessions ';
 import WhyJoin from '../ExtraSections/WhyJoin/WhyJoin';
 import OurServices from '../ExtraSections/OurServices/OurServices';
 import HowTutorHubWorks from '../ExtraSections/HowTutorHubWorks/HowTutorHubWorks';
+import FaqAccordion from '../ExtraSections/FaqAccordion/FaqAccordion';
+import BeTutorCard from '../../../shared/BeTutorCard/BeTutorCard';
 
 const Home = () => {
     return (
@@ -19,6 +21,12 @@ const Home = () => {
             </section>
             <section>
                 <HowTutorHubWorks></HowTutorHubWorks>
+            </section>
+            <section>
+                <FaqAccordion></FaqAccordion>
+            </section>
+            <section>
+                <BeTutorCard></BeTutorCard>
             </section>
         </div>
     );
