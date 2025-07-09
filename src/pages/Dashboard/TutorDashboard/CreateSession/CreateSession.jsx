@@ -81,13 +81,13 @@ const CreateStudySession = () => {
                     type="text"
                     readOnly
                     value={user.displayName}
-                    className="input input-bordered w-full bg-gray-100"
+                    className="input input-bordered w-full "
                 />
                 <input
                     type="email"
                     readOnly
                     value={user.email}
-                    className="input input-bordered w-full bg-gray-100"
+                    className="input input-bordered w-full "
                 />
 
                 <textarea
@@ -148,7 +148,7 @@ const CreateStudySession = () => {
                     type="number"
                     defaultValue={0}
                     readOnly={role !== 'admin'}
-                    className={`input input-bordered w-full ${role !== 'admin' ? 'bg-gray-100' : ''}`}
+                    className={`input input-bordered w-full ${role !== 'admin' ? '' : ''}`}
                     placeholder="Registration Fee"
                 />
 

@@ -57,7 +57,7 @@ const DashboardLayout = () => {
                         Pending Tutors
                     </NavLink>
 
-                    <NavLink to="/dashboard/view-study-sessions" className={navClass}>
+                    <NavLink to="/dashboard/admin-view-study-sessions" className={navClass}>
                         <FaClipboardList className="w-5 h-5" />
                         View Study Sessions
                     </NavLink>

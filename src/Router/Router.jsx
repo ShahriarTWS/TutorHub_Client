@@ -11,6 +11,8 @@ import TutorManagement from "../pages/Dashboard/TutorManagement/TutorManagement"
 import AllTutors from "../pages/Dashboard/AllTutors/AllTutors";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import CreateSession from "../pages/Dashboard/TutorDashboard/CreateSession/CreateSession";
+import MyStudySessions from "../pages/Dashboard/TutorDashboard/MyStudySessions/MyStudySessions";
+import AdminStudySessions from "../pages/Dashboard/AdminDashboard/AdminStudySessions/AdminStudySessions";
 
 export const router = createBrowserRouter([
     {
@@ -64,6 +66,14 @@ export const router = createBrowserRouter([
             {
                 path: 'create-study-session',
                 element: <CreateSession></CreateSession>
+            },
+            {
+                path: 'view-study-sessions',
+                element: <MyStudySessions></MyStudySessions>
+            },
+            {
+                path: 'admin-view-study-sessions',
+                element: <AdminStudySessions></AdminStudySessions>
             }
         ]
     }
