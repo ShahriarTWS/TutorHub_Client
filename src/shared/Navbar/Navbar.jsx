@@ -30,19 +30,19 @@ const Navbar = () => {
     const navLinks = (
         <>
             <li>
-                <NavLink to="/" className="flex items-center gap-2">
+                <NavLink to="/" className="flex items-center text-base gap-2">
                     <FaHome className="inline lg:hidden" />
                     <span>Home</span>
                 </NavLink>
             </li>
             <li>
-                <NavLink to="/tutor" className="flex items-center gap-2">
+                <NavLink to="/tutor" className="flex items-center text-base gap-2">
                     <FaChalkboardTeacher className="inline lg:hidden" />
                     <span>Tutor</span>
                 </NavLink>
             </li>
             <li>
-                <NavLink to="/study-sessions" className="flex items-center gap-2">
+                <NavLink to="/study-sessions" className="flex items-center text-base gap-2">
                     <FaBookOpen className="inline lg:hidden" />
                     <span>Study Sessions</span>
                 </NavLink>

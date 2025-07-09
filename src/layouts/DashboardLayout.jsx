@@ -3,8 +3,6 @@ import { Link, NavLink, Outlet } from 'react-router';
 import useAuth from '../hooks/useAuth';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-
-// React Icons import
 import {
     FaUsers,
     FaUserPlus,
@@ -15,7 +13,10 @@ import {
     FaStickyNote,
     FaRegFileAlt,
     FaHome,
+    FaBars,
+    FaTimes,
 } from 'react-icons/fa';
+import LoadingPage from '../shared/Loading/LoadingPage';
 
 const DashboardLayout = () => {
     const { user } = useAuth();
@@ -27,7 +28,7 @@ const DashboardLayout = () => {
         enabled: !!user?.email,
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/role/${user.email}`);
-            return res.data; // { role: 'admin' | 'tutor' | 'student' }
+            return res.data;
         },
     });
 
@@ -41,19 +42,33 @@ const DashboardLayout = () => {
         if (role === 'admin') {
             return (
                 <>
+                    <NavLink to="/dashboard/view-users" className={navClass}>
+                        <FaUsers className="w-5 h-5" />
+                        View All Users
+                    </NavLink>
+
                     <NavLink to="/dashboard/manage-users" className={navClass}>
                         <FaUsers className="w-5 h-5" />
-                        Manage Users
+                        Manage Tutors
                     </NavLink>
+
+                    <NavLink to="/dashboard/pending-tutors" className={navClass}>
+                        <FaUserPlus className="w-5 h-5" />
+                        Pending Tutors
+                    </NavLink>
+
                     <NavLink to="/dashboard/view-study-sessions" className={navClass}>
                         <FaClipboardList className="w-5 h-5" />
-                        View All Study Sessions
+                        View Study Sessions
                     </NavLink>
+
                     <NavLink to="/dashboard/view-materials" className={navClass}>
                         <FaFileUpload className="w-5 h-5" />
                         View All Materials
                     </NavLink>
+
                 </>
+
             );
         } else if (role === 'tutor') {
             return (
@@ -77,7 +92,6 @@ const DashboardLayout = () => {
                 </>
             );
         } else {
-            // student
             return (
                 <>
                     <NavLink to="/dashboard/booked-sessions" className={navClass}>
@@ -101,44 +115,55 @@ const DashboardLayout = () => {
         }
     };
 
-    if (isLoading) {
-        return <div className="text-center py-20">Loading dashboard...</div>;
-    }
+    if (isLoading) return <LoadingPage></LoadingPage>;
 
     return (
         <div className="min-h-screen flex bg-base-100 text-base-content">
-            {/* Sidebar */}
-            <aside className="w-64 bg-base-200 p-5 flex flex-col justify-between">
-                <div>
-                    {/* User Info */}
-                    <div className="flex items-center gap-3 mb-8 px-4">
-                        <img
-                            src={user?.photoURL || '/default-avatar.png'}
-                            alt="User"
-                            className="w-10 h-10 rounded-full object-cover border border-gray-300"
-                        />
-                        <div>
-                            <h2 className="text-lg font-semibold truncate">{user?.displayName || 'Dashboard'}</h2>
-                            <p className="text-sm text-gray-600 capitalize">{role || 'Loading...'}</p>
+            {/* Sidebar for desktop */}
+            <aside
+                className={`fixed md:static pt-12 md:pt-0 top-0 left-0 z-40 md:z-auto w-64 h-full md:h-auto bg-base-200 shadow-md transition-transform duration-300 ease-in-out
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}
+            >
+                <div className="flex flex-col justify-between h-full p-4">
+                    <div>
+                        {/* User Info */}
+                        <div className="flex items-center gap-3 mb-8 px-2">
+                            <img
+                                src={user?.photoURL || '/default-avatar.png'}
+                                alt="User"
+                                className="w-10 h-10 rounded-full object-cover border border-gray-300"
+                            />
+                            <div>
+                                <h2 className="text-base font-semibold truncate">{user?.displayName || 'Dashboard'}</h2>
+                                <p className="text-xs text-gray-600 capitalize">{role || 'Loading...'}</p>
+                            </div>
                         </div>
+
+                        {/* Links */}
+                        <nav className="flex flex-col gap-2">{renderLinks()}</nav>
                     </div>
 
-                    {/* Role-based Nav */}
-                    <nav className="flex flex-col gap-2">{renderLinks()}</nav>
+                    <Link
+                        to="/"
+                        className="btn btn-outline mt-6 flex items-center justify-center gap-2"
+                        onClick={() => setSidebarOpen(false)}
+                    >
+                        <FaHome className="w-5 h-5" />
+                        Back to Home
+                    </Link>
                 </div>
-
-                {/* Footer Button */}
-                <Link
-                    to="/"
-                    className="btn btn-outline mt-6 flex items-center justify-center gap-2"
-                >
-                    <FaHome className="w-5 h-5" />
-                    Back to Home
-                </Link>
             </aside>
 
+            {/* Hamburger Button (mobile) */}
+            <button
+                className="md:hidden fixed top-4 left-4 z-50 p-2 bg-primary text-white rounded-md"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+            >
+                {sidebarOpen ? <FaTimes className="w-5 h-5" /> : <FaBars className="w-5 h-5" />}
+            </button>
+
             {/* Main Content */}
-            <main className="flex-1 p-6 overflow-y-auto">
+            <main className="flex-1 p-6  w-full overflow-y-auto">
                 <Outlet />
             </main>
         </div>

@@ -58,6 +58,7 @@ const BeTutorForm = () => {
         try {
             const payload = {
                 ...data,
+                photo: user?.photoURL || '', // ✅ add profile photo from Firebase
                 role: 'tutor',
                 status: 'pending', // reset status on re-application
             };
@@ -95,6 +96,7 @@ const BeTutorForm = () => {
             });
         }
     };
+
 
     if (isLoading) {
         return <div className="text-center py-20 text-lg">Loading...</div>;

@@ -8,6 +8,9 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import PrivateRoutes from "../routes/PrivateRoutes";
 import BeTutorForm from "../shared/BeTutorCard/BeTutorForm";
 import TutorManagement from "../pages/Dashboard/TutorManagement/TutorManagement";
+import AllTutors from "../pages/Dashboard/AllTutors/AllTutors";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+import CreateSession from "../pages/Dashboard/TutorDashboard/CreateSession/CreateSession";
 
 export const router = createBrowserRouter([
     {
@@ -47,8 +50,20 @@ export const router = createBrowserRouter([
         </PrivateRoutes>,
         children: [
             {
-                path: 'manage-users',
+                path: 'pending-tutors',
                 element: <TutorManagement></TutorManagement>
+            },
+            {
+                path: 'manage-users',
+                element: <AllTutors></AllTutors>
+            },
+            {
+                path: 'view-users',
+                element: <AllUsers></AllUsers>
+            },
+            {
+                path: 'create-study-session',
+                element: <CreateSession></CreateSession>
             }
         ]
     }
