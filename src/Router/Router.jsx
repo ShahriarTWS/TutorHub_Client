@@ -6,6 +6,8 @@ import Login from "../pages/Authentication/Login/Login";
 import Register from "../pages/Authentication/Register/Register";
 import DashboardLayout from "../layouts/DashboardLayout";
 import PrivateRoutes from "../routes/PrivateRoutes";
+import BeTutorForm from "../shared/BeTutorCard/BeTutorForm";
+import TutorManagement from "../pages/Dashboard/TutorManagement/TutorManagement";
 
 export const router = createBrowserRouter([
     {
@@ -15,6 +17,12 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <Home></Home>
+            },
+            {
+                path: 'become-tutor',
+                element: <PrivateRoutes>
+                    <BeTutorForm></BeTutorForm>
+                </PrivateRoutes>
             }
         ]
     },
@@ -36,6 +44,12 @@ export const router = createBrowserRouter([
         path: 'dashboard',
         element: <PrivateRoutes>
             <DashboardLayout></DashboardLayout>
-        </PrivateRoutes>
+        </PrivateRoutes>,
+        children: [
+            {
+                path: 'manage-users',
+                element: <TutorManagement></TutorManagement>
+            }
+        ]
     }
 ])

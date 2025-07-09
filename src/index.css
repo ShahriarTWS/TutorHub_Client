@@ -39,7 +39,9 @@
   --color-warning: #F59E0B;          /* Amber-500 */
   --color-error: #EF4444;            /* Red-500 */
 
-    --color-back-color: #F0F0F0;
+  --color-back-color: #F0F0F0;
+  --color-h-start: #e0e7ff
+  --color-h-end: #f3e8ff
 }
 
 
@@ -73,6 +75,8 @@ name: "dark";
   --color-error: #F87171;            /* Red-400 */
 
   --color-back-color: #0F172A;         /* Match base-100 */
+    --color-h-start: #e0e7ff
+  --color-h-end: #f3e8ff
 }
 
 
