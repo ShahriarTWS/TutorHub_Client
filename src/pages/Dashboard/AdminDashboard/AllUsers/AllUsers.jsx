@@ -243,16 +243,33 @@ const AllUsers = () => {
                                     {selectedUser.status && <p><strong>Status:</strong> {selectedUser.status}</p>}
                                     {selectedUser.experience && <p><strong>Experience:</strong> {selectedUser.experience} years</p>}
                                     {selectedUser.speciality && <p><strong>Speciality:</strong> {selectedUser.speciality}</p>}
+
                                     {selectedUser.education && (
-                                        <p><strong>Education:</strong> {Object.values(selectedUser.education).join(', ')}</p>
+                                        <>
+                                            <p><strong>Education:</strong></p>
+                                            <ul className="ml-4 list-disc">
+                                                {selectedUser.education.degree && <li><strong>Degree:</strong> {selectedUser.education.degree}</li>}
+                                                {selectedUser.education.institution && <li><strong>Institution:</strong> {selectedUser.education.institution}</li>}
+                                                {selectedUser.education.year && <li><strong>Year:</strong> {selectedUser.education.year}</li>}
+                                                {selectedUser.education.gpa && <li><strong>GPA:</strong> {selectedUser.education.gpa}</li>}
+                                            </ul>
+                                        </>
                                     )}
+
                                     {selectedUser.bio && <p><strong>Bio:</strong> {selectedUser.bio}</p>}
+
                                     {selectedUser.linkedin && (
-                                        <p><strong>LinkedIn:</strong> <a href={selectedUser.linkedin} target="_blank" className="link link-primary">View Profile</a></p>
+                                        <p>
+                                            <strong>LinkedIn:</strong>{' '}
+                                            <a href={selectedUser.linkedin} target="_blank" rel="noreferrer" className="link link-primary">
+                                                View Profile
+                                            </a>
+                                        </p>
                                     )}
                                 </>
                             )}
 
+                            {/* Common Fields for All Roles */}
                             {selectedUser.createdAt && (
                                 <p><strong>Joined:</strong> {new Date(selectedUser.createdAt).toLocaleDateString()}</p>
                             )}
@@ -265,6 +282,7 @@ const AllUsers = () => {
                     </div>
                 </dialog>
             )}
+
         </div>
     );
 };

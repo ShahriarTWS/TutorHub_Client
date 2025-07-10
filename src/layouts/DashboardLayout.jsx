@@ -73,13 +73,13 @@ const DashboardLayout = () => {
         } else if (role === 'tutor') {
             return (
                 <>
-                    <NavLink to="/dashboard/create-study-session" className={navClass}>
-                        <FaUserPlus className="w-5 h-5" />
-                        Create Study Session
-                    </NavLink>
                     <NavLink to="/dashboard/view-study-sessions" className={navClass}>
                         <FaClipboardList className="w-5 h-5" />
                         My Study Sessions
+                    </NavLink>
+                    <NavLink to="/dashboard/create-study-session" className={navClass}>
+                        <FaUserPlus className="w-5 h-5" />
+                        Create Study Session
                     </NavLink>
                     <NavLink to="/dashboard/upload-materials" className={navClass}>
                         <FaFileUpload className="w-5 h-5" />

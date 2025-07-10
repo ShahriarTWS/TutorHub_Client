@@ -53,10 +53,13 @@ const AllTutors = () => {
     };
 
     // Filter tutors by search
-    const filteredTutors = tutors.filter((tutor) =>
-        tutor.name?.toLowerCase().includes(searchText.toLowerCase()) ||
-        tutor.email?.toLowerCase().includes(searchText.toLowerCase())
-    );
+    const filteredTutors = tutors
+        .filter(tutor => tutor.status === 'approved') // Only approved tutors
+        .filter(tutor =>
+            tutor.name?.toLowerCase().includes(searchText.toLowerCase()) ||
+            tutor.email?.toLowerCase().includes(searchText.toLowerCase())
+        );
+
 
     // Pagination logic
     const totalPages = Math.ceil(filteredTutors.length / ITEMS_PER_PAGE);
@@ -149,56 +152,56 @@ const AllTutors = () => {
 
             {/* Modal */}
             {selectedTutor && (
-    <dialog open className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box max-h-[90vh] overflow-y-auto">
-            <div className="flex flex-col sm:flex-row gap-6">
-                {/* Left side: Text content */}
-                <div className="flex-1 text-left space-y-2 text-sm">
-                    <h3 className="text-xl font-bold mb-2">{selectedTutor.name}</h3>
-                    <p><strong>Email:</strong> {selectedTutor.email}</p>
-                    <p><strong>Experience:</strong> {selectedTutor.experience} years</p>
-                    <p><strong>Speciality:</strong> {selectedTutor.speciality}</p>
-                    <p><strong>Degree:</strong> {selectedTutor.education?.degree}</p>
-                    <p><strong>Institution:</strong> {selectedTutor.education?.institution}</p>
-                    <p><strong>Passing Year:</strong> {selectedTutor.education?.year}</p>
-                    <p><strong>GPA:</strong> {selectedTutor.education?.gpa}</p>
-                    <p><strong>Bio:</strong> {selectedTutor.bio}</p>
-                    {selectedTutor.linkedin && (
-                        <p>
-                            <strong>LinkedIn:</strong>{' '}
-                            <a
-                                href={selectedTutor.linkedin}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="link link-primary"
+                <dialog open className="modal modal-bottom sm:modal-middle">
+                    <div className="modal-box max-h-[90vh] overflow-y-auto">
+                        <div className="flex flex-col sm:flex-row gap-6">
+                            {/* Left side: Text content */}
+                            <div className="flex-1 text-left space-y-2 text-sm">
+                                <h3 className="text-xl font-bold mb-2">{selectedTutor.name}</h3>
+                                <p><strong>Email:</strong> {selectedTutor.email}</p>
+                                <p><strong>Experience:</strong> {selectedTutor.experience} years</p>
+                                <p><strong>Speciality:</strong> {selectedTutor.speciality}</p>
+                                <p><strong>Degree:</strong> {selectedTutor.education?.degree}</p>
+                                <p><strong>Institution:</strong> {selectedTutor.education?.institution}</p>
+                                <p><strong>Passing Year:</strong> {selectedTutor.education?.year}</p>
+                                <p><strong>GPA:</strong> {selectedTutor.education?.gpa}</p>
+                                <p><strong>Bio:</strong> {selectedTutor.bio}</p>
+                                {selectedTutor.linkedin && (
+                                    <p>
+                                        <strong>LinkedIn:</strong>{' '}
+                                        <a
+                                            href={selectedTutor.linkedin}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="link link-primary"
+                                        >
+                                            View Profile
+                                        </a>
+                                    </p>
+                                )}
+                            </div>
+
+                            {/* Right side: Photo */}
+                            <div className="flex-shrink-0 w-32 h-32 rounded-lg overflow-hidden shadow-lg">
+                                <img
+                                    src={selectedTutor.photo || 'https://i.ibb.co/jkQ1q8R/default-user.png'}
+                                    alt={`${selectedTutor.name} profile`}
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="modal-action mt-4">
+                            <button
+                                onClick={() => setSelectedTutor(null)}
+                                className="btn btn-outline"
                             >
-                                View Profile
-                            </a>
-                        </p>
-                    )}
-                </div>
-
-                {/* Right side: Photo */}
-                <div className="flex-shrink-0 w-32 h-32 rounded-lg overflow-hidden shadow-lg">
-                    <img
-                        src={selectedTutor.photo || 'https://i.ibb.co/jkQ1q8R/default-user.png'}
-                        alt={`${selectedTutor.name} profile`}
-                        className="w-full h-full object-cover"
-                    />
-                </div>
-            </div>
-
-            <div className="modal-action mt-4">
-                <button
-                    onClick={() => setSelectedTutor(null)}
-                    className="btn btn-outline"
-                >
-                    Close
-                </button>
-            </div>
-        </div>
-    </dialog>
-)}
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </dialog>
+            )}
 
         </div>
     );

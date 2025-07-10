@@ -14,6 +14,7 @@ import CreateSession from "../pages/Dashboard/TutorDashboard/CreateSession/Creat
 import MyStudySessions from "../pages/Dashboard/TutorDashboard/MyStudySessions/MyStudySessions";
 import AdminStudySessions from "../pages/Dashboard/AdminDashboard/AdminStudySessions/AdminStudySessions";
 import UpdateStudySession from "../pages/Dashboard/TutorDashboard/UpdateStudySession/UpdateStudySession";
+import UploadMaterials from "../pages/Dashboard/TutorDashboard/UploadMaterials/UploadMaterials";
 
 export const router = createBrowserRouter([
     {
@@ -54,31 +55,35 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: 'pending-tutors',
-                element: <TutorManagement></TutorManagement>
+                element: <PrivateRoutes><TutorManagement></TutorManagement></PrivateRoutes>
             },
             {
                 path: 'manage-users',
-                element: <AllTutors></AllTutors>
+                element: <PrivateRoutes><AllTutors></AllTutors></PrivateRoutes>
             },
             {
                 path: 'view-users',
-                element: <AllUsers></AllUsers>
+                element: <PrivateRoutes><AllUsers></AllUsers></PrivateRoutes>
             },
             {
                 path: 'create-study-session',
-                element: <CreateSession></CreateSession>
+                element: <PrivateRoutes><CreateSession></CreateSession></PrivateRoutes>
             },
             {
                 path: 'view-study-sessions',
-                element: <MyStudySessions></MyStudySessions>
+                element: <PrivateRoutes><MyStudySessions></MyStudySessions></PrivateRoutes>
             },
             {
                 path: 'admin-view-study-sessions',
-                element: <AdminStudySessions></AdminStudySessions>
+                element: <PrivateRoutes><AdminStudySessions></AdminStudySessions></PrivateRoutes>
             },
             {
                 path: 'update-session/:id',
-                element: <UpdateStudySession></UpdateStudySession>
+                element: <PrivateRoutes><UpdateStudySession></UpdateStudySession></PrivateRoutes>
+            },
+            {
+                path: 'upload-materials',
+                element: <PrivateRoutes><UploadMaterials></UploadMaterials></PrivateRoutes>
             }
         ]
     }

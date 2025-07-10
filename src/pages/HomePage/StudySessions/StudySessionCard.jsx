@@ -1,38 +1,60 @@
 import React from 'react';
+import { format } from 'date-fns';
 
-const StudySessionCard = ({ title, description, registrationDeadline, image }) => {
+const StudySessionCard = ({
+    title = 'Untitled',
+    description = 'No description available.',
+    registrationEnd,
+    image,
+    registrationFee,
+    classStart,
+    classEnd
+}) => {
     const now = new Date();
-    const deadline = new Date(registrationDeadline);
+    const deadline = new Date(registrationEnd);
     const isOngoing = now <= deadline;
 
+    const formattedClassStart = classStart ? format(new Date(classStart), 'MMM d, yyyy') : 'N/A';
+    const formattedClassEnd = classEnd ? format(new Date(classEnd), 'MMM d, yyyy') : 'N/A';
+
     return (
-        <div className="group bg-base-200 rounded-2xl overflow-hidden shadow-md transform transition-all duration-300 hover:scale-[1.03] hover:shadow-xl cursor-pointer hover:bg-gradient-to-br ">
+        <div className="group rounded-xl overflow-hidden bg-white shadow hover:shadow-lg transition-all duration-300 hover:scale-[1.02] border border-base-200 flex flex-col">
             {/* Image */}
-            <div className="h-40 overflow-hidden">
+            <div className="h-44 bg-gray-100 overflow-hidden flex justify-center items-center">
                 <img
                     src={image}
                     alt={title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
             </div>
 
             {/* Content */}
-            <div className="p-5 flex flex-col justify-between h-[calc(100%-10rem)]">
-                <h2 className="text-xl font-bold mb-2 text-primary">{title}</h2>
-                <p className="text-gray-600 mb-4 line-clamp-3">{description}</p>
+            <div className="p-5 flex flex-col flex-grow">
+                {/* Title */}
+                <h3 className="text-xl font-semibold text-primary mb-1 line-clamp-1">{title}</h3>
 
-                <div className="flex items-center justify-between">
+                {/* Description */}
+                <p className="text-gray-600 text-sm mb-3 line-clamp-2">{description}</p>
+
+                {/* Info Section */}
+                <div className="text-sm text-gray-700 mb-4 space-y-1">
+                    <p><span className="font-medium">Class:</span> {formattedClassStart} → {formattedClassEnd}</p>
+                    <p><span className="font-medium">Fee:</span> {registrationFee > 0 ? `${registrationFee}৳` : 'Free'}</p>
+                </div>
+
+                {/* Status + Button Footer */}
+                <div className="flex items-center justify-between mt-auto pt-4">
                     <span
-                        className={`px-3 py-1 text-xs font-semibold rounded-full ${isOngoing
-                            ? 'bg-green-100 text-green-700'
-                            : 'bg-red-100 text-red-700'
+                        className={`text-xs font-semibold px-3 py-1 rounded-full 
+                            ${isOngoing
+                                ? 'bg-green-100 text-green-700'
+                                : 'bg-red-100 text-red-700'
                             }`}
                     >
                         {isOngoing ? 'Ongoing' : 'Closed'}
                     </span>
-
-                    <button className="btn btn-sm btn-primary hover:scale-105 transition-transform duration-300">
-                        Read More
+                    <button className="btn btn-sm btn-primary hover:scale-105 transition-transform duration-200">
+                        Details
                     </button>
                 </div>
             </div>

@@ -89,19 +89,19 @@ const AdminStudySessions = () => {
                                 </td>
                                 <td className="border border-gray-300">
                                     <span
-                                        className={`badge ${session.status === 'approved'
-                                                ? 'badge-success'
-                                                : session.status === 'pending'
-                                                    ? 'badge-warning'
-                                                    : 'badge-error'
+                                        className={`badge text-base-100 ${session.status === 'approved'
+                                            ? 'badge-success'
+                                            : session.status === 'pending'
+                                                ? 'badge-warning'
+                                                : 'badge-error'
                                             }`}
                                     >
                                         {session.status}
                                     </span>
                                 </td>
-                                <td className="border border-gray-300 space-x-2">
+                                <td className="border border-gray-300 space-x-2 ">
                                     <button
-                                        className="btn btn-sm btn-success"
+                                        className="btn btn-sm btn-success text-base-100"
                                         onClick={() => {
                                             setSelectedSession(session);
                                             setRegistrationFee(session.registrationFee || '');
@@ -110,17 +110,11 @@ const AdminStudySessions = () => {
                                         Approve
                                     </button>
                                     <button
-                                        className="btn btn-sm btn-error"
+                                        className="btn btn-sm btn-error text-base-100"
                                         onClick={() => setRejectSession(session)}
                                     >
                                         Reject
                                     </button>
-                                    <Link
-                                        to={`/dashboard/update-session/${session._id}`}
-                                        className="btn btn-sm btn-warning"
-                                    >
-                                        Update
-                                    </Link>
                                 </td>
                             </tr>
                         ))}
