@@ -9,10 +9,11 @@ import PrivateRoutes from "../routes/PrivateRoutes";
 import BeTutorForm from "../shared/BeTutorCard/BeTutorForm";
 import TutorManagement from "../pages/Dashboard/TutorManagement/TutorManagement";
 import AllTutors from "../pages/Dashboard/AllTutors/AllTutors";
-import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+import AllUsers from "../pages/Dashboard/AdminDashboard/AllUsers/AllUsers";
 import CreateSession from "../pages/Dashboard/TutorDashboard/CreateSession/CreateSession";
 import MyStudySessions from "../pages/Dashboard/TutorDashboard/MyStudySessions/MyStudySessions";
 import AdminStudySessions from "../pages/Dashboard/AdminDashboard/AdminStudySessions/AdminStudySessions";
+import UpdateStudySession from "../pages/Dashboard/TutorDashboard/UpdateStudySession/UpdateStudySession";
 
 export const router = createBrowserRouter([
     {
@@ -74,6 +75,10 @@ export const router = createBrowserRouter([
             {
                 path: 'admin-view-study-sessions',
                 element: <AdminStudySessions></AdminStudySessions>
+            },
+            {
+                path: 'update-session/:id',
+                element: <UpdateStudySession></UpdateStudySession>
             }
         ]
     }
