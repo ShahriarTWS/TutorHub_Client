@@ -57,10 +57,16 @@ const MyStudySessions = () => {
                                 <td>{session.title}</td>
                                 <td>
                                     <span
-                                        className={`badge ${session.status === 'approved' ? 'badge-success' : 'badge-warning'
+                                        className={`badge ${session.status === 'approved'
+                                                ? 'badge-success'
+                                                : session.status === 'pending'
+                                                    ? 'badge-warning'
+                                                    : session.status === 'rejected'
+                                                        ? 'badge-error'
+                                                        : 'badge-secondary'
                                             }`}
                                     >
-                                        {session.status}
+                                        {session.status.charAt(0).toUpperCase() + session.status.slice(1)}
                                     </span>
                                 </td>
                                 <td>
@@ -83,15 +89,17 @@ const MyStudySessions = () => {
                 </table>
             )}
 
-            {/* Modal */}
-            {/* Modal */}
             {selectedSession && (
-                <dialog open className="modal modal-bottom sm:modal-middle" onClick={() => setSelectedSession(null)}>
+                <dialog
+                    open
+                    className="modal modal-bottom sm:modal-middle"
+                    onClick={() => setSelectedSession(null)}
+                >
                     <div
                         className="modal-box max-h-[90vh] overflow-y-auto"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Image on top */}
+                        {/* Image */}
                         <div className="w-full h-48 rounded-lg overflow-hidden shadow-lg mb-4">
                             <img
                                 src={selectedSession.image}
@@ -100,18 +108,42 @@ const MyStudySessions = () => {
                             />
                         </div>
 
-                        {/* Text content below image */}
-                        {/* Text content below image */}
+                        {/* Details */}
                         <div className="text-left space-y-2 text-sm">
                             <h3 className="text-xl font-bold mb-2">{selectedSession.title}</h3>
-                            <p><strong>Description:</strong> {selectedSession.description}</p>
-                            <p><strong>Duration:</strong> {selectedSession.duration}</p>
-                            <p><strong>Registration:</strong> {selectedSession.registrationStart} to {selectedSession.registrationEnd}</p>
-                            <p><strong>Class Period:</strong> {selectedSession.classStart} to {selectedSession.classEnd}</p>
-                            <p><strong>Registration Fee:</strong> ${selectedSession.registrationFee?.toFixed(2) || '0.00'}</p>
-                            <p><strong>Status:</strong> {selectedSession.status}</p>
+                            <p>
+                                <strong>Description:</strong> {selectedSession.description}
+                            </p>
+                            <p>
+                                <strong>Duration:</strong> {selectedSession.duration}
+                            </p>
+                            <p>
+                                <strong>Registration:</strong> {selectedSession.registrationStart} to{' '}
+                                {selectedSession.registrationEnd}
+                            </p>
+                            <p>
+                                <strong>Class Period:</strong> {selectedSession.classStart} to {selectedSession.classEnd}
+                            </p>
+                            <p>
+                                <strong>Registration Fee:</strong> ${selectedSession.registrationFee?.toFixed(2) || '0.00'}
+                            </p>
+                            <p>
+                                <strong>Status:</strong>{' '}
+                                <span
+                                    className={`badge ${selectedSession.status === 'approved'
+                                            ? 'badge-success'
+                                            : selectedSession.status === 'pending'
+                                                ? 'badge-warning'
+                                                : selectedSession.status === 'rejected'
+                                                    ? 'badge-error'
+                                                    : 'badge-secondary'
+                                        }`}
+                                >
+                                    {selectedSession.status.charAt(0).toUpperCase() + selectedSession.status.slice(1)}
+                                </span>
+                            </p>
 
-                            {/* Rejection Feedback */}
+                            {/* Feedback if rejected */}
                             {selectedSession.status === 'rejected' && selectedSession.feedback && (
                                 <p className="text-red-500">
                                     <strong>Rejection Feedback:</strong> {selectedSession.feedback}
@@ -119,7 +151,7 @@ const MyStudySessions = () => {
                             )}
                         </div>
 
-
+                        {/* Actions */}
                         <div className="modal-action mt-4 flex justify-between flex-wrap gap-2">
                             <button
                                 onClick={() => navigate(`/dashboard/update-session/${selectedSession._id}`)}
@@ -127,17 +159,13 @@ const MyStudySessions = () => {
                             >
                                 Update
                             </button>
-                            <button
-                                onClick={() => setSelectedSession(null)}
-                                className="btn btn-outline"
-                            >
+                            <button onClick={() => setSelectedSession(null)} className="btn btn-outline">
                                 Close
                             </button>
                         </div>
                     </div>
                 </dialog>
             )}
-
         </div>
     );
 };

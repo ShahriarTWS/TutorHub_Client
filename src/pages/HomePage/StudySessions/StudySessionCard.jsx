@@ -18,7 +18,7 @@ const StudySessionCard = ({
     const formattedClassEnd = classEnd ? format(new Date(classEnd), 'MMM d, yyyy') : 'N/A';
 
     return (
-        <div className="group rounded-xl overflow-hidden bg-white shadow hover:shadow-lg transition-all duration-300 hover:scale-[1.02] border border-base-200 flex flex-col">
+        <div className="group rounded-xl overflow-hidden bg-base-200 shadow hover:shadow-lg transition-all duration-300 hover:scale-[1.02] border border-base-200 flex flex-col">
             {/* Image */}
             <div className="h-44 bg-gray-100 overflow-hidden flex justify-center items-center">
                 <img
@@ -31,13 +31,13 @@ const StudySessionCard = ({
             {/* Content */}
             <div className="p-5 flex flex-col flex-grow">
                 {/* Title */}
-                <h3 className="text-xl font-semibold text-primary mb-1 line-clamp-1">{title}</h3>
+                <h3 className="text-xl font-semibold  mb-1 line-clamp-1">{title}</h3>
 
                 {/* Description */}
-                <p className="text-gray-600 text-sm mb-3 line-clamp-2">{description}</p>
+                <p className=" text-sm mb-3 line-clamp-2">{description}</p>
 
                 {/* Info Section */}
-                <div className="text-sm text-gray-700 mb-4 space-y-1">
+                <div className="text-sm  mb-4 space-y-1">
                     <p><span className="font-medium">Class:</span> {formattedClassStart} → {formattedClassEnd}</p>
                     <p><span className="font-medium">Fee:</span> {registrationFee > 0 ? `${registrationFee}৳` : 'Free'}</p>
                 </div>

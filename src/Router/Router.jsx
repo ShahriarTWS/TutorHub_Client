@@ -15,6 +15,8 @@ import MyStudySessions from "../pages/Dashboard/TutorDashboard/MyStudySessions/M
 import AdminStudySessions from "../pages/Dashboard/AdminDashboard/AdminStudySessions/AdminStudySessions";
 import UpdateStudySession from "../pages/Dashboard/TutorDashboard/UpdateStudySession/UpdateStudySession";
 import UploadMaterials from "../pages/Dashboard/TutorDashboard/UploadMaterials/UploadMaterials";
+import MyMaterials from "../pages/Dashboard/TutorDashboard/MyMaterials/MyMaterials";
+import AdminMaterialsView from "../pages/Dashboard/AdminDashboard/AdminMaterialsView/AdminMaterialsView";
 
 export const router = createBrowserRouter([
     {
@@ -84,6 +86,14 @@ export const router = createBrowserRouter([
             {
                 path: 'upload-materials',
                 element: <PrivateRoutes><UploadMaterials></UploadMaterials></PrivateRoutes>
+            },
+            {
+                path: 'view-materials',
+                element: <PrivateRoutes><MyMaterials></MyMaterials></PrivateRoutes>
+            },
+            {
+                path: 'admin-view-materials',
+                element: <PrivateRoutes><AdminMaterialsView></AdminMaterialsView></PrivateRoutes>
             }
         ]
     }

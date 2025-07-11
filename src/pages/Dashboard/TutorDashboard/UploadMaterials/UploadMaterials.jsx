@@ -9,6 +9,8 @@ const UploadMaterials = () => {
     const queryClient = useQueryClient();
     const { user } = useAuth();
     const [selectedSession, setSelectedSession] = useState(null);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
     const [link, setLink] = useState('');
     const [file, setFile] = useState(null);
 
@@ -35,6 +37,8 @@ const UploadMaterials = () => {
             queryClient.invalidateQueries(['approved-sessions', user?.email]);
             Swal.fire('Success', 'Material uploaded successfully!', 'success');
             setSelectedSession(null);
+            setTitle('');
+            setDescription('');
             setLink('');
             setFile(null);
         },
@@ -50,6 +54,10 @@ const UploadMaterials = () => {
             return Swal.fire('Error', 'Please provide at least a link or a file.', 'error');
         }
 
+        if (!title.trim() || !description.trim()) {
+            return Swal.fire('Error', 'Title and description are required.', 'error');
+        }
+
         let fileURL = '';
         if (file) {
             const formData = new FormData();
@@ -62,7 +70,6 @@ const UploadMaterials = () => {
                     body: formData,
                 });
                 const data = await res.json();
-                console.log('imgbb upload response:', data);
                 if (data.success) {
                     fileURL = data.data.url;
                 } else {
@@ -76,8 +83,8 @@ const UploadMaterials = () => {
 
         uploadMutation.mutate({
             sessionId: selectedSession._id,
-            title: selectedSession.title,
-            description: selectedSession.description,
+            title,
+            description,
             uploadedBy: user?.email,
             resourceLink: link,
             fileURL,
@@ -108,6 +115,8 @@ const UploadMaterials = () => {
                                 className="btn btn-sm btn-primary mt-2"
                                 onClick={() => {
                                     setSelectedSession(session);
+                                    setTitle('');
+                                    setDescription('');
                                     setLink('');
                                     setFile(null);
                                 }}
@@ -126,6 +135,27 @@ const UploadMaterials = () => {
                         <h3 className="font-bold text-lg mb-2">Upload Materials for {selectedSession.title}</h3>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
+                                <label className="label">Title</label>
+                                <input
+                                    type="text"
+                                    className="input input-bordered w-full"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="label">Description</label>
+                                <textarea
+                                    className="textarea textarea-bordered w-full"
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <div>
                                 <label className="label">Resource Link (optional)</label>
                                 <input
                                     type="url"
@@ -140,7 +170,7 @@ const UploadMaterials = () => {
                                 <label className="label">Upload Image File (optional)</label>
                                 <input
                                     type="file"
-                                    accept="image/png,image/jpeg,image/jpg"
+                                    accept="image/png,image/jpeg,image/jpg,image/svg+xml"
                                     onChange={(e) => setFile(e.target.files[0])}
                                     className="file-input file-input-bordered w-full"
                                 />

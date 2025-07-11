@@ -62,7 +62,7 @@ const DashboardLayout = () => {
                         View Study Sessions
                     </NavLink>
 
-                    <NavLink to="/dashboard/view-materials" className={navClass}>
+                    <NavLink to="/dashboard/admin-view-materials" className={navClass}>
                         <FaFileUpload className="w-5 h-5" />
                         View All Materials
                     </NavLink>

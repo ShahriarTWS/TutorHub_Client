@@ -9,7 +9,7 @@ import useAxios from '../../../../hooks/useAxios';
 
 const CreateStudySession = () => {
     const { user } = useAuth();
-    const [role] = useRole(); // Check if admin
+    const [role] = useRole();
     const axiosInstant = useAxios();
 
     const {
@@ -23,23 +23,49 @@ const CreateStudySession = () => {
 
     const onSubmit = async (data) => {
         try {
-            // Upload image
-            const imageFile = data.sessionImage[0];
+            // --- Validate image and API key
+            const imageFile = data.sessionImage?.[0];
+
+            if (!imgbbApiKey) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Missing API Key',
+                    text: 'VITE_IMGBB_API_KEY is not defined in your .env file',
+                });
+                return;
+            }
+
+            if (!imageFile) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Image required',
+                    text: 'Please select an image to upload.',
+                });
+                return;
+            }
+
+            // --- Upload image to imgbb
             const formData = new FormData();
-            formData.append('image', imageFile);
+            formData.append("image", imageFile);
 
             const imgbbRes = await axios.post(
                 `https://api.imgbb.com/1/upload?key=${imgbbApiKey}`,
-                formData
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
             );
-            const imageUrl = imgbbRes.data.data.url;
 
-            // Prepare session data
+            const imageUrl = imgbbRes.data?.data?.url;
+
+            // --- Prepare session data
             const sessionData = {
                 title: data.title,
                 tutorName: user.displayName,
                 tutorEmail: user.email,
-                tutorImage: user.photoURL, // ✅ Tutor profile picture
+                tutorImage: user.photoURL || '',
                 description: data.description,
                 registrationStart: data.registrationStart,
                 registrationEnd: data.registrationEnd,
@@ -51,17 +77,26 @@ const CreateStudySession = () => {
                 image: imageUrl,
             };
 
-            // Send to backend
+            // --- Post to backend
             const res = await axiosInstant.post('/sessions', sessionData);
-            if (res.data.insertedId) {
+
+            if (res.data?.insertedId) {
                 Swal.fire('✅ Success!', 'Study session created.', 'success');
                 reset();
             } else {
-                Swal.fire('❌ Error', 'Failed to create session', 'error');
+                Swal.fire({
+                    icon: 'error',
+                    title: '❌ Backend Error',
+                    text: 'Failed to create session',
+                });
             }
         } catch (err) {
-            console.error(err);
-            Swal.fire('❌ Error', 'Something went wrong', 'error');
+            console.error('❌ Upload or submit error:', err);
+            Swal.fire({
+                icon: 'error',
+                title: '❌ Upload Error',
+                text: err?.response?.data?.error || err.message || 'Something went wrong',
+            });
         }
     };
 
