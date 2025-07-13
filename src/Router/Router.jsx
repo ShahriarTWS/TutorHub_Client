@@ -19,6 +19,7 @@ import MyMaterials from "../pages/Dashboard/TutorDashboard/MyMaterials/MyMateria
 import AdminMaterialsView from "../pages/Dashboard/AdminDashboard/AdminMaterialsView/AdminMaterialsView";
 import StudySessions from "../pages/HomePage/StudySessions/StudySessions ";
 import Payment from "../pages/Payment/Payment";
+import MyBookedSessions from "../pages/Dashboard/StudentDashboard/MyBookedSessions/MyBookedSessions";
 
 
 export const router = createBrowserRouter([
@@ -109,7 +110,12 @@ export const router = createBrowserRouter([
             {
                 path: 'admin-view-materials',
                 element: <PrivateRoutes><AdminMaterialsView></AdminMaterialsView></PrivateRoutes>
-            }
+            },
+            {
+                path: 'booked-sessions',
+                element: <PrivateRoutes><MyBookedSessions></MyBookedSessions></PrivateRoutes>
+            },
+
         ]
     }
 ])
