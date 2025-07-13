@@ -104,7 +104,7 @@ const AllUsers = () => {
                     {data.users.map((user) => (
                         <div
                             key={user._id}
-                            className="card bg-base-200 border rounded-lg shadow transform transition-transform duration-300 hover:scale-105"
+                            className="card bg-base-200 rounded-lg shadow transform transition-transform duration-300 hover:scale-105"
                         >
                             <div className="card-body items-center text-center">
                                 <div className="avatar">
@@ -144,7 +144,7 @@ const AllUsers = () => {
             {!isLoading && data && data.users.length > 0 && viewMode === 'table' && (
                 <div className="overflow-x-auto mt-4">
                     <table className="table w-full border border-gray-300">
-                        <thead className="bg-base-200">
+                        <thead className="bg-base-300">
                             <tr>
                                 <th className="px-4 py-2 text-left">S/N</th>
                                 <th className="px-4 py-2 text-left">Photo</th>
@@ -159,7 +159,7 @@ const AllUsers = () => {
                             {data.users.map((user, index) => (
                                 <tr
                                     key={user._id}
-                                    className="hover:bg-base-100 border-b border-gray-300 transition-all duration-200"
+                                    className="hover:bg-base-100 border-b border-gray-300 bg-base-200 transition-all duration-200"
                                 >
                                     <td className="px-4 py-2">{(currentPage - 1) * ITEMS_PER_PAGE + index + 1}</td>{/* */}
                                     <td className="px-4 py-2">

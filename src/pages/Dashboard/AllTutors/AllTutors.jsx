@@ -20,37 +20,12 @@ const AllTutors = () => {
             const res = await axiosSecure.get('/tutors/all');
             return res.data;
         },
+        staleTime: 1000 * 30,
+        refetchInterval: 1000 * 10,
+        refetchOnWindowFocus: true,
     });
 
-    // Mutation for deleting a tutor
-    const deleteTutorMutation = useMutation({
-        mutationFn: async (id) => {
-            return await axiosSecure.delete(`/tutors/${id}`);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries(['all-tutors']);
-            Swal.fire('Deleted!', 'Tutor has been deleted.', 'success');
-        },
-        onError: () => {
-            Swal.fire('Error', 'Something went wrong!', 'error');
-        },
-    });
 
-    const handleDelete = (id) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'This action will permanently remove the tutor.',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                deleteTutorMutation.mutate(id);
-            }
-        });
-    };
 
     // Filter tutors by search
     const filteredTutors = tutors
@@ -77,7 +52,7 @@ const AllTutors = () => {
     }
 
     return (
-        <div className="p-4 sm:p-6 max-w-7xl mx-auto">
+        <div className="py-16 md:w-10/12 w-11/12 mx-auto">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-center flex items-center justify-center gap-2">
                 <FaChalkboardTeacher className="text-primary" /> All Tutors
             </h2>
@@ -121,12 +96,6 @@ const AllTutors = () => {
                                     className="btn btn-sm btn-primary"
                                 >
                                     View Details
-                                </button>
-                                <button
-                                    onClick={() => handleDelete(tutor._id)}
-                                    className="btn btn-sm btn-error text-base-100"
-                                >
-                                    <FaTrash /> Delete
                                 </button>
                             </div>
                         </div>

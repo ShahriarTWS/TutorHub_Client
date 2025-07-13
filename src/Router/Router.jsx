@@ -18,6 +18,7 @@ import UploadMaterials from "../pages/Dashboard/TutorDashboard/UploadMaterials/U
 import MyMaterials from "../pages/Dashboard/TutorDashboard/MyMaterials/MyMaterials";
 import AdminMaterialsView from "../pages/Dashboard/AdminDashboard/AdminMaterialsView/AdminMaterialsView";
 
+
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -32,6 +33,14 @@ export const router = createBrowserRouter([
                 element: <PrivateRoutes>
                     <BeTutorForm></BeTutorForm>
                 </PrivateRoutes>
+            },
+            {
+                path: 'tutors',
+                element: <AllTutors></AllTutors>
+            },
+            {
+                path: 'study-sessions',
+            
             }
         ]
     },

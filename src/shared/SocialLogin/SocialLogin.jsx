@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import useAxios from '../../hooks/useAxios'; // 👈 import your axios instance
 
 const SocialLogin = () => {
-    const { signInWithGoogle } = useAuth();
+    const { signInWithGoogle, updateUserProfile } = useAuth();
     const axiosInstance = useAxios();
 
     const location = useLocation();
@@ -18,6 +18,8 @@ const SocialLogin = () => {
             const result = await signInWithGoogle();
             const user = result.user;
 
+            // 3. Update Firebase profile
+            await updateUserProfile(user.name, user.photoURL);
             // 👇 Save user to MongoDB
             const userInfo = {
                 uid: user.uid,
