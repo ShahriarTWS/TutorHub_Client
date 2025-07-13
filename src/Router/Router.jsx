@@ -17,6 +17,7 @@ import UpdateStudySession from "../pages/Dashboard/TutorDashboard/UpdateStudySes
 import UploadMaterials from "../pages/Dashboard/TutorDashboard/UploadMaterials/UploadMaterials";
 import MyMaterials from "../pages/Dashboard/TutorDashboard/MyMaterials/MyMaterials";
 import AdminMaterialsView from "../pages/Dashboard/AdminDashboard/AdminMaterialsView/AdminMaterialsView";
+import StudySessions from "../pages/HomePage/StudySessions/StudySessions ";
 
 
 export const router = createBrowserRouter([
@@ -40,7 +41,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'study-sessions',
-            
+                element: <StudySessions></StudySessions>
             }
         ]
     },

@@ -6,6 +6,7 @@ import OurServices from '../ExtraSections/OurServices/OurServices';
 import HowTutorHubWorks from '../ExtraSections/HowTutorHubWorks/HowTutorHubWorks';
 import FaqAccordion from '../ExtraSections/FaqAccordion/FaqAccordion';
 import BeTutorCard from '../../../shared/BeTutorCard/BeTutorCard';
+import FeaturedStudySessions from '../StudySessions/FeaturedStudySessions';
 
 const Home = () => {
     return (
@@ -14,7 +15,7 @@ const Home = () => {
                 <Banner></Banner>
             </section>
             <section>
-                <StudySessions></StudySessions>
+                <FeaturedStudySessions></FeaturedStudySessions>
             </section>
             <section>
                 <OurServices></OurServices>
