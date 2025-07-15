@@ -81,7 +81,7 @@ const CheckoutForm = ({ price, userEmail, sessionId }) => {
                     confirmButtonText: 'Go to Dashboard',
                 });
 
-                navigate('/dashboard/enrolled'); // Change route if needed
+                navigate('/dashboard/booked-sessions');
             } else {
                 setError('Payment was not successful. Please try again.');
             }

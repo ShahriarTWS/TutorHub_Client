@@ -15,6 +15,7 @@ import {
     FaHome,
     FaBars,
     FaTimes,
+    FaMoneyCheck,
 } from 'react-icons/fa';
 import LoadingPage from '../shared/Loading/LoadingPage';
 
@@ -110,6 +111,10 @@ const DashboardLayout = () => {
                         <FaBook className="w-5 h-5" />
                         Study Materials
                     </NavLink>
+                    <NavLink to="/dashboard/payment-history" className={navClass}>
+                        <FaMoneyCheck className="w-5 h-5" />
+                        Payment History
+                    </NavLink>
                 </>
             );
         }
@@ -143,14 +148,16 @@ const DashboardLayout = () => {
                         <nav className="flex flex-col gap-2">{renderLinks()}</nav>
                     </div>
 
-                    <Link
-                        to="/"
-                        className="btn btn-outline mt-6 flex items-center justify-center gap-2"
-                        onClick={() => setSidebarOpen(false)}
-                    >
-                        <FaHome className="w-5 h-5" />
-                        Back to Home
-                    </Link>
+                    <div className='sticky bottom-1 z-50'>
+                        <Link
+                            to="/"
+                            className="btn btn-outline flex items-center justify-center gap-2"
+                            onClick={() => setSidebarOpen(false)}
+                        >
+                            <FaHome className="w-5 h-5" />
+                            Back to Home
+                        </Link>
+                    </div>
                 </div>
             </aside>
 

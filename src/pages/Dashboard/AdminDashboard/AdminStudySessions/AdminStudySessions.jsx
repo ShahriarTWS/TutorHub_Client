@@ -179,7 +179,7 @@ const AdminStudySessions = () => {
                         <p><strong>Class:</strong> {selectedSession.classStart} to {selectedSession.classEnd}</p>
 
                         <div className="form-control mt-4">
-                            <label className="label font-semibold">Registration Fee (USD)</label>
+                            <label className="label font-semibold">Registration Fee (TAKA)</label>
                             <input
                                 type="number"
                                 className="input input-bordered"

@@ -255,55 +255,61 @@ const MyBookedSessions = () => {
                                                     </div>
 
                                                     {/* Materials */}
-                                                    <div>
-                                                        <h4 className="text-2xl font-semibold mb-4 border-b border-gray-300 pb-2">Materials</h4>
-                                                        {materialsLoading ? (
-                                                            <p className="text-gray-500">Loading materials...</p>
-                                                        ) : materials.length === 0 ? (
-                                                            <p className="italic text-gray-500">No materials available for this session.</p>
-                                                        ) : (
-                                                            <div className="space-y-5 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 p-3 rounded border border-gray-200">
-                                                                {materials.map(m => (
-                                                                    <div
-                                                                        key={m._id}
-                                                                        className="p-4 bg-base-200 rounded-lg shadow-sm border border-gray-300"
-                                                                    >
-                                                                        <h5 className="font-semibold text-lg">{m.title || 'Untitled'}</h5>
-                                                                        <p className="text-gray-400 mb-2">{m.description || 'No description'}</p>
-                                                                        {m.resourceLink && (
-                                                                            <p>
-                                                                                <a
-                                                                                    href={m.resourceLink}
-                                                                                    target="_blank"
-                                                                                    rel="noopener noreferrer"
-                                                                                    className="text-blue-600 underline hover:text-blue-800"
-                                                                                >
-                                                                                    Resource Link
-                                                                                </a>
+                                                    {/* Materials - show only if class has started */}
+                                                    {new Date(session?.classStart) <= new Date() ? (
+                                                        <div>
+                                                            <h4 className="text-2xl font-semibold mb-4 border-b border-gray-300 pb-2">Materials</h4>
+                                                            {materialsLoading ? (
+                                                                <p className="text-gray-500">Loading materials...</p>
+                                                            ) : materials.length === 0 ? (
+                                                                <p className="italic text-gray-500">No materials available for this session.</p>
+                                                            ) : (
+                                                                <div className="space-y-5 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 p-3 rounded border border-gray-200">
+                                                                    {materials.map(m => (
+                                                                        <div
+                                                                            key={m._id}
+                                                                            className="p-4 bg-base-200 rounded-lg shadow-sm border border-gray-300"
+                                                                        >
+                                                                            <h5 className="font-semibold text-lg">{m.title || 'Untitled'}</h5>
+                                                                            <p className="text-gray-400 mb-2">{m.description || 'No description'}</p>
+                                                                            {m.resourceLink && (
+                                                                                <p>
+                                                                                    <a
+                                                                                        href={m.resourceLink}
+                                                                                        target="_blank"
+                                                                                        rel="noopener noreferrer"
+                                                                                        className="text-blue-600 underline hover:text-blue-800"
+                                                                                    >
+                                                                                        Resource Link
+                                                                                    </a>
+                                                                                </p>
+                                                                            )}
+                                                                            {m.fileURL && (
+                                                                                <p>
+                                                                                    <a
+                                                                                        href={m.fileURL}
+                                                                                        target="_blank"
+                                                                                        rel="noopener noreferrer"
+                                                                                        className="text-blue-600 underline hover:text-blue-800"
+                                                                                        download
+                                                                                    >
+                                                                                        Download File
+                                                                                    </a>
+                                                                                </p>
+                                                                            )}
+                                                                            <p className="text-xs text-gray-400 mt-2">
+                                                                                Uploaded by: {m.uploadedBy || 'Unknown'} <br />
+                                                                                Uploaded at: {m.uploadedAt ? new Date(m.uploadedAt).toLocaleString() : 'N/A'}
                                                                             </p>
-                                                                        )}
-                                                                        {m.fileURL && (
-                                                                            <p>
-                                                                                <a
-                                                                                    href={m.fileURL}
-                                                                                    target="_blank"
-                                                                                    rel="noopener noreferrer"
-                                                                                    className="text-blue-600 underline hover:text-blue-800"
-                                                                                    download
-                                                                                >
-                                                                                    Download File
-                                                                                </a>
-                                                                            </p>
-                                                                        )}
-                                                                        <p className="text-xs text-gray-400 mt-2">
-                                                                            Uploaded by: {m.uploadedBy || 'Unknown'} <br />
-                                                                            Uploaded at: {m.uploadedAt ? new Date(m.uploadedAt).toLocaleString() : 'N/A'}
-                                                                        </p>
-                                                                    </div>
-                                                                ))}
-                                                            </div>
-                                                        )}
-                                                    </div>
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    ) : (
+                                                        <p className="italic text-gray-500">📌 Materials will be available after class starts on {new Date(session?.classStart).toLocaleDateString()}.</p>
+                                                    )}
+
 
                                                     {/* Reviews */}
                                                     <div>

@@ -20,6 +20,7 @@ import AdminMaterialsView from "../pages/Dashboard/AdminDashboard/AdminMaterials
 import StudySessions from "../pages/HomePage/StudySessions/StudySessions ";
 import Payment from "../pages/Payment/Payment";
 import MyBookedSessions from "../pages/Dashboard/StudentDashboard/MyBookedSessions/MyBookedSessions";
+import PaymentHistory from "../pages/Dashboard/StudentDashboard/PaymentHistory/PaymentHistory";
 
 
 export const router = createBrowserRouter([
@@ -115,6 +116,10 @@ export const router = createBrowserRouter([
                 path: 'booked-sessions',
                 element: <PrivateRoutes><MyBookedSessions></MyBookedSessions></PrivateRoutes>
             },
+            {
+                path: 'payment-history',
+                element: <PrivateRoutes><PaymentHistory></PaymentHistory></PrivateRoutes>
+            }
 
         ]
     }

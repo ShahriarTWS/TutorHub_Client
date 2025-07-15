@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import useAuth from '../../../../hooks/useAuth';
 import useAxios from '../../../../hooks/useAxios';
@@ -10,6 +10,7 @@ const MyStudySessions = () => {
     const { user } = useAuth();
     const axiosInstant = useAxios();
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
     const [selectedSession, setSelectedSession] = useState(null);
 
@@ -29,6 +30,34 @@ const MyStudySessions = () => {
         },
         staleTime: 5 * 60 * 1000,
     });
+
+    // ✅ Handle delete
+    const handleDelete = (sessionId) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This will permanently delete the session!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const res = await axiosInstant.delete(`/sessions/${sessionId}`);
+                    if (res.data.deletedCount > 0) {
+                        Swal.fire('Deleted!', 'The session has been deleted.', 'success');
+                        queryClient.invalidateQueries(['mySessions', user?.email]);
+                    } else {
+                        Swal.fire('Error', 'Session not found or already deleted.', 'error');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    Swal.fire('Error', 'Failed to delete session.', 'error');
+                }
+            }
+        });
+    };
 
     return (
         <div className="max-w-5xl mx-auto p-6">
@@ -58,12 +87,12 @@ const MyStudySessions = () => {
                                 <td>
                                     <span
                                         className={`badge ${session.status === 'approved'
-                                                ? 'badge-success'
-                                                : session.status === 'pending'
-                                                    ? 'badge-warning'
-                                                    : session.status === 'rejected'
-                                                        ? 'badge-error'
-                                                        : 'badge-secondary'
+                                            ? 'badge-success'
+                                            : session.status === 'pending'
+                                                ? 'badge-warning'
+                                                : session.status === 'rejected'
+                                                    ? 'badge-error'
+                                                    : 'badge-secondary'
                                             }`}
                                     >
                                         {session.status.charAt(0).toUpperCase() + session.status.slice(1)}
@@ -75,12 +104,18 @@ const MyStudySessions = () => {
                                 <td>
                                     {session.classStart} to {session.classEnd}
                                 </td>
-                                <td>
+                                <td className="flex flex-wrap gap-2">
                                     <button
                                         className="btn btn-sm btn-info"
                                         onClick={() => setSelectedSession(session)}
                                     >
                                         View Info
+                                    </button>
+                                    <button
+                                        className="btn btn-sm btn-error"
+                                        onClick={() => handleDelete(session._id)}
+                                    >
+                                        Delete
                                     </button>
                                 </td>
                             </tr>
@@ -99,7 +134,6 @@ const MyStudySessions = () => {
                         className="modal-box max-h-[90vh] overflow-y-auto"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Image */}
                         <div className="w-full h-48 rounded-lg overflow-hidden shadow-lg mb-4">
                             <img
                                 src={selectedSession.image}
@@ -108,42 +142,26 @@ const MyStudySessions = () => {
                             />
                         </div>
 
-                        {/* Details */}
                         <div className="text-left space-y-2 text-sm">
                             <h3 className="text-xl font-bold mb-2">{selectedSession.title}</h3>
-                            <p>
-                                <strong>Description:</strong> {selectedSession.description}
-                            </p>
-                            <p>
-                                <strong>Duration:</strong> {selectedSession.duration}
-                            </p>
-                            <p>
-                                <strong>Registration:</strong> {selectedSession.registrationStart} to{' '}
-                                {selectedSession.registrationEnd}
-                            </p>
-                            <p>
-                                <strong>Class Period:</strong> {selectedSession.classStart} to {selectedSession.classEnd}
-                            </p>
-                            <p>
-                                <strong>Registration Fee:</strong> ${selectedSession.registrationFee?.toFixed(2) || '0.00'}
-                            </p>
+                            <p><strong>Description:</strong> {selectedSession.description}</p>
+                            <p><strong>Duration:</strong> {selectedSession.duration}</p>
+                            <p><strong>Registration:</strong> {selectedSession.registrationStart} to {selectedSession.registrationEnd}</p>
+                            <p><strong>Class Period:</strong> {selectedSession.classStart} to {selectedSession.classEnd}</p>
+                            <p><strong>Registration Fee:</strong> ${selectedSession.registrationFee?.toFixed(2) || '0.00'}</p>
                             <p>
                                 <strong>Status:</strong>{' '}
-                                <span
-                                    className={`badge ${selectedSession.status === 'approved'
-                                            ? 'badge-success'
-                                            : selectedSession.status === 'pending'
-                                                ? 'badge-warning'
-                                                : selectedSession.status === 'rejected'
-                                                    ? 'badge-error'
-                                                    : 'badge-secondary'
-                                        }`}
-                                >
+                                <span className={`badge ${selectedSession.status === 'approved'
+                                    ? 'badge-success'
+                                    : selectedSession.status === 'pending'
+                                        ? 'badge-warning'
+                                        : selectedSession.status === 'rejected'
+                                            ? 'badge-error'
+                                            : 'badge-secondary'
+                                    }`}>
                                     {selectedSession.status.charAt(0).toUpperCase() + selectedSession.status.slice(1)}
                                 </span>
                             </p>
-
-                            {/* Feedback if rejected */}
                             {selectedSession.status === 'rejected' && selectedSession.feedback && (
                                 <p className="text-red-500">
                                     <strong>Rejection Feedback:</strong> {selectedSession.feedback}
@@ -151,7 +169,6 @@ const MyStudySessions = () => {
                             )}
                         </div>
 
-                        {/* Actions */}
                         <div className="modal-action mt-4 flex justify-between flex-wrap gap-2">
                             <button
                                 onClick={() => navigate(`/dashboard/update-session/${selectedSession._id}`)}
