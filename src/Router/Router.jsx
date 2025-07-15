@@ -21,6 +21,7 @@ import StudySessions from "../pages/HomePage/StudySessions/StudySessions ";
 import Payment from "../pages/Payment/Payment";
 import MyBookedSessions from "../pages/Dashboard/StudentDashboard/MyBookedSessions/MyBookedSessions";
 import PaymentHistory from "../pages/Dashboard/StudentDashboard/PaymentHistory/PaymentHistory";
+import CreateNote from "../pages/Dashboard/StudentDashboard/CreateNote/CreateNote";
 
 
 export const router = createBrowserRouter([
@@ -119,6 +120,10 @@ export const router = createBrowserRouter([
             {
                 path: 'payment-history',
                 element: <PrivateRoutes><PaymentHistory></PaymentHistory></PrivateRoutes>
+            },
+            {
+                path: 'create-note',
+                element: <PrivateRoutes><CreateNote></CreateNote></PrivateRoutes>
             }
 
         ]
