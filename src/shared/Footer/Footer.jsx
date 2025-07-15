@@ -30,7 +30,7 @@ const RedesignedFooter = () => {
                     <ul className="space-y-2 text-sm">
                         <li><Link to="/" className="hover:text-primary transition-all">Home</Link></li>
                         <li><Link to="/study-sessions" className="hover:text-primary transition-all">Study Sessions</Link></li>
-                        <li><Link to="/tutor" className="hover:text-primary transition-all">Tutors</Link></li>
+                        <li><Link to="/tutors" className="hover:text-primary transition-all">Tutors</Link></li>
                         <li><Link to="/dashboard" className="hover:text-primary transition-all">Dashboard</Link></li>
                         <li><Link to="/services" className="hover:text-primary transition-all">Our Services</Link></li>
                     </ul>

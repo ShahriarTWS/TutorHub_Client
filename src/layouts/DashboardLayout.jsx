@@ -18,6 +18,7 @@ import {
     FaMoneyCheck,
 } from 'react-icons/fa';
 import LoadingPage from '../shared/Loading/LoadingPage';
+import LearnTogetherLogo from '../shared/LearnTogetherLogo/LearnTogetherLogo';
 
 const DashboardLayout = () => {
     const { user } = useAuth();
@@ -171,6 +172,7 @@ const DashboardLayout = () => {
 
             {/* Main Content */}
             <main className="flex-1 p-6  w-full overflow-y-auto">
+                <div className='flex justify-center'><LearnTogetherLogo></LearnTogetherLogo></div>
                 <Outlet />
             </main>
         </div>

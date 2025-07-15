@@ -7,7 +7,7 @@ import { FaStar, FaRegStar } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { saveAs } from 'file-saver';
 
-const MyBookedSessions = () => {
+const StudyMaterials = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
@@ -150,7 +150,7 @@ const MyBookedSessions = () => {
     return (
         <div className="max-w-7xl mx-auto px-6 py-10">
             <header className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-                <h2 className="text-4xl font-extrabold text-primary">📚 My Booked Sessions</h2>
+                <h2 className="text-4xl font-extrabold text-primary">📚 Study Materials</h2>
                 <div className="flex gap-3 w-full max-w-lg">
                     <input
                         type="text"
@@ -216,7 +216,7 @@ const MyBookedSessions = () => {
                                                             <img
                                                                 src={session.image}
                                                                 alt={session.title}
-                                                                className="mx-auto mb-6 rounded-lg  w-full object-cover shadow-md"
+                                                                className="mx-auto mb-6 rounded-lg max-h-64 object-cover shadow-md"
                                                                 loading="lazy"
                                                             />
                                                         )}
@@ -256,7 +256,7 @@ const MyBookedSessions = () => {
 
                                                     {/* Materials */}
                                                     {/* Materials - show only if class has started */}
-                                                    {/* {new Date(session?.classStart) <= new Date() ? (
+                                                    {new Date(session?.classStart) <= new Date() ? (
                                                         <div>
                                                             <h4 className="text-2xl font-semibold mb-4 border-b border-gray-300 pb-2">Materials</h4>
                                                             {materialsLoading ? (
@@ -308,7 +308,7 @@ const MyBookedSessions = () => {
                                                         </div>
                                                     ) : (
                                                         <p className="italic text-gray-500">📌 Materials will be available after class starts on {new Date(session?.classStart).toLocaleDateString()}.</p>
-                                                    )} */}
+                                                    )}
 
 
                                                     {/* Reviews */}
@@ -387,4 +387,4 @@ const MyBookedSessions = () => {
     );
 };
 
-export default MyBookedSessions;
+export default StudyMaterials;
