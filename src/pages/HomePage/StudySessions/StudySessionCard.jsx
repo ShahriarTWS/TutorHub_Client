@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
@@ -26,6 +26,7 @@ const StudySessionCard = (session) => {
     const isOngoing = now <= deadline;
 
     const [showModal, setShowModal] = useState(false);
+    const [hasEnrolled, setHasEnrolled] = useState(false);
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
@@ -46,23 +47,53 @@ const StudySessionCard = (session) => {
     const formattedRegStart = registrationStart ? format(new Date(registrationStart), 'MMM d, yyyy') : 'N/A';
     const formattedRegEnd = registrationEnd ? format(new Date(registrationEnd), 'MMM d, yyyy') : 'N/A';
 
+    // NEW: Check if user already enrolled for this session
+    useEffect(() => {
+        if (!user?.email) return;
+
+        const checkEnrollment = async () => {
+            try {
+                const res = await axiosSecure.get(`/payments/user/${user.email}`);
+                const payments = res.data || [];
+
+                const enrolled = payments.some(payment => {
+                    // payment.sessionId can be null for some records, so check carefully
+                    // sessionId may be ObjectId, so stringify it
+                    return payment.sessionId && payment.sessionId === _id;
+                });
+
+                if (enrolled) {
+                    setHasEnrolled(true);
+                }
+            } catch (error) {
+                console.error('Failed to check enrollment status:', error);
+            }
+        };
+
+        checkEnrollment();
+    }, [user?.email, _id, axiosSecure]);
+
     const handleEnroll = async () => {
-        if (!user || !user.email) return Swal.fire('Error', 'You must be logged in', 'error');
+        if (!user || !user.email) {
+            return Swal.fire('Error', 'You must be logged in', 'error');
+        }
 
         if (registrationFee <= 0) {
-            // Free session – directly record payment
+            // Free session – directly record payment without redirect
             const paymentData = {
-                studentEmail: user.email,
-                sessionId: _id,
+                email: user.email,
                 amount: 0,
                 transactionId: 'FREE',
+                date: new Date().toISOString(),
+                sessionId: _id,
             };
 
             try {
-                const res = await axiosSecure.post('/payments', paymentData);
+                const res = await axiosSecure.post('/payments/store-payment', paymentData);
                 if (res.data.insertedId) {
                     Swal.fire('Enrolled!', 'You have successfully enrolled for free.', 'success');
                     setShowModal(false);
+                    setHasEnrolled(true);
                 }
             } catch (error) {
                 console.error('Enrollment failed:', error);
@@ -129,8 +160,12 @@ const StudySessionCard = (session) => {
 
                         {role === 'student' && !roleLoading && isOngoing && (
                             <div className="mt-6 text-right">
-                                <button className="btn btn-primary" onClick={handleEnroll}>
-                                    Enroll
+                                <button 
+                                    className="btn btn-primary" 
+                                    onClick={handleEnroll}
+                                    disabled={hasEnrolled} 
+                                >
+                                    {hasEnrolled ? 'Enrolled' : 'Enroll'}
                                 </button>
                             </div>
                         )}
