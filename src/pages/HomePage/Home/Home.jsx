@@ -29,6 +29,9 @@ const Home = () => {
             <section>
                 <BeTutorCard></BeTutorCard>
             </section>
+            <section>
+                <WhyJoin></WhyJoin>
+            </section>
         </div>
     );
 };
