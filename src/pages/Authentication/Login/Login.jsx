@@ -1,65 +1,48 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FcGoogle } from 'react-icons/fc';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from '../../../shared/SocialLogin/SocialLogin';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [passwordValue, setPasswordValue] = useState('');
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
     const { signIn } = useAuth();
 
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from || '/';
-    console.log(location);
 
-
-    const onSubmit = data => {
-        signIn(data.email, data.password)
-            .then(result => {
-                console.log(result);
-                navigate(from);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }
-
-
-    const handleForgotPassword = () => {
-        console.log("Forgot Password Clicked");
-        // TODO: Add forgot password functionality or redirect
+    const onSubmit = async (data) => {
+        try {
+            const result = await signIn(data.email, data.password);
+            console.log(result);
+            navigate(from);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
 
-
-
     return (
-        <div className="min-h-[90vh] flex flex-col items-center justify-center md:px-4 ">
-
-            
-
-            {/* Card */}
+        <div className="min-h-[90vh] flex flex-col items-center justify-center md:px-4">
             <div className="w-full max-w-md bg-base-200 p-6 sm:p-8 rounded-2xl shadow-lg">
-                
                 {/* Title */}
                 <h2 className="text-3xl font-semibold text-center">Welcome Back</h2>
                 <h2 className="text-sm font-semibold text-center mb-2">Login to your account</h2>
 
                 {/* Google Login */}
-                <SocialLogin></SocialLogin>
+                <SocialLogin />
 
                 {/* Divider */}
                 <div className="text-center text-gray-400 mb-2">OR</div>
 
                 {/* Email & Password Form */}
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                    
+
                     {/* Email */}
                     <div>
                         <label className="block mb-1 text-sm font-medium">Email</label>
@@ -81,14 +64,13 @@ const Login = () => {
                                 required: "Password is required",
                                 minLength: {
                                     value: 6,
-                                    message: "Password must be at least 6 characters long"
+                                    message: "Password must be at least 6 characters"
                                 }
                             })}
                             onChange={(e) => setPasswordValue(e.target.value)}
                             className="input input-bordered w-full pr-10"
                             placeholder="********"
                         />
-                        {/* Toggle Eye Icon */}
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
@@ -96,30 +78,28 @@ const Login = () => {
                         >
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
                         </button>
-
-                        {/* Error */}
-                        {errors.password && (
-                            <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
-                        )}
-
+                        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
 
                         {/* Forgot Password */}
                         <div className="text-right mt-2">
-                            <button
-                                type="button"
-                                onClick={handleForgotPassword}
-                                className="text-sm text-blue-600 hover:underline"
-                            >
-                                Forgot Password?
-                            </button>
+                            <Link to={'/reset-password'}>
+                                <button
+                                    type="button"
+                                    className="text-sm text-blue-600 hover:underline"
+                                >
+                                    Forgot Password?
+                                </button>
+                            </Link>
                         </div>
                     </div>
 
-
-
-                    {/* Submit */}
-                    <button type="submit" className="btn btn-primary w-full mt-2">
-                        Login
+                    {/* Submit Button */}
+                    <button
+                        type="submit"
+                        className="btn btn-primary w-full mt-2"
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? "Logging in..." : "Login"}
                     </button>
                 </form>
 

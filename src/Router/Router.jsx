@@ -25,6 +25,7 @@ import CreateNote from "../pages/Dashboard/StudentDashboard/CreateNote/CreateNot
 import ManageNotes from "../pages/Dashboard/StudentDashboard/ManageNotes/ManageNotes";
 import StudyMaterials from "../pages/Dashboard/StudentDashboard/StudyMaterials/StudyMaterials";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+import ForgetPassword from "../pages/Authentication/ForgetPassword/ForgetPassword";
 
 
 export const router = createBrowserRouter([
@@ -67,6 +68,10 @@ export const router = createBrowserRouter([
             {
                 path: 'register',
                 element: <Register></Register>
+            },
+            {
+                path: 'reset-password',
+                element: <ForgetPassword></ForgetPassword>
             }
         ]
     },
