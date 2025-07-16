@@ -5,7 +5,7 @@ import useAuth from './useAuth';
 
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:3000/',
+    baseURL: `https://learn-together-server-sigma.vercel.app/`,  //http://localhost:3000/
     withCredentials: true, // <== send cookies on cross-origin requests
 });
 
