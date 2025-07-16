@@ -5,12 +5,12 @@ import Swal from 'sweetalert2';
 
 import useAuth from '../../../../hooks/useAuth';
 import useRole from '../../../../hooks/useRole';
-import useAxios from '../../../../hooks/useAxios';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 
 const CreateStudySession = () => {
     const { user } = useAuth();
     const [role] = useRole();
-    const axiosInstant = useAxios();
+    const axiosInstant = useAxiosSecure();
 
     const {
         register,

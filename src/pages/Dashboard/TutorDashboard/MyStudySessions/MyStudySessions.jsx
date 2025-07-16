@@ -3,12 +3,12 @@ import Swal from 'sweetalert2';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import useAuth from '../../../../hooks/useAuth';
-import useAxios from '../../../../hooks/useAxios';
 import { useNavigate } from 'react-router';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 
 const MyStudySessions = () => {
     const { user } = useAuth();
-    const axiosInstant = useAxios();
+    const axiosInstant = useAxiosSecure();
     const navigate = useNavigate();
     const queryClient = useQueryClient();
 

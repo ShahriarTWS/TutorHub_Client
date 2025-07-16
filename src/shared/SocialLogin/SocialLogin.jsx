@@ -3,11 +3,11 @@ import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
-import useAxios from '../../hooks/useAxios'; // 👈 import your axios instance
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const SocialLogin = () => {
     const { signInWithGoogle, updateUserProfile } = useAuth();
-    const axiosInstance = useAxios();
+    const axiosInstance = useAxiosSecure();
 
     const location = useLocation();
     const navigate = useNavigate();

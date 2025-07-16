@@ -5,8 +5,8 @@ import SocialLogin from '../../../shared/SocialLogin/SocialLogin';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useAuth from '../../../hooks/useAuth';
 import axios from 'axios';
-import useAxios from '../../../hooks/useAxios';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -15,7 +15,7 @@ const Register = () => {
     const [loading, setLoading] = useState(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const axiosInstance = useAxios();
+    const axiosInstance = useAxiosSecure();
 
     const password = watch('password'); // Watch password to match
 
