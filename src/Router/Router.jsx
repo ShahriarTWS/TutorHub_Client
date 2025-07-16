@@ -26,6 +26,7 @@ import ManageNotes from "../pages/Dashboard/StudentDashboard/ManageNotes/ManageN
 import StudyMaterials from "../pages/Dashboard/StudentDashboard/StudyMaterials/StudyMaterials";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import ForgetPassword from "../pages/Authentication/ForgetPassword/ForgetPassword";
+import NotFound from "../pages/NotFound/NotFound";
 
 
 export const router = createBrowserRouter([
@@ -147,5 +148,9 @@ export const router = createBrowserRouter([
             }
 
         ]
+    },
+    {
+        path: '*',
+        element: <NotFound></NotFound>
     }
 ])
