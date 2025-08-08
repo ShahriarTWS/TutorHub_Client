@@ -10,6 +10,12 @@
 
 ---
 
+## 🖼️ Screenshot
+
+![TutorHub Screenshot](https://res.cloudinary.com/dwgj5fypm/image/upload/v1754628467/Screenshot_2025-08-08_104503_ddzqnd.png)
+
+---
+
 ## 🔑 Key Features
 
 - 🔐 **Firebase Authentication**: Secure login/signup with email-password and Google sign-in support.
@@ -26,14 +32,11 @@
 
 ---
 
-## 👨‍💼 Admin Access
 
-- **Email:** `admin@tutorhub.com`  
-- **Password:** `@Admin00`
+## 🛠️ Technologies Used
 
----
+### Frontend
 
-## 🧩 NPM Packages Used
 
 - [`@tanstack/react-query`](https://www.npmjs.com/package/@tanstack/react-query)
 - [`axios`](https://www.npmjs.com/package/axios)
@@ -49,11 +52,69 @@
 - [`tailwindcss`](https://www.npmjs.com/package/tailwindcss)
 - [`daisyui`](https://www.npmjs.com/package/daisyui)
 
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- JWT (JSON Web Token)
+- Stripe Payment API
+- CORS & Dotenv
+
 ---
 
+## ⚙️ How to Run the Project Locally
 
+### Prerequisites:
+- Node.js, nodemon & npm installed
+- MongoDB URI
+- Firebase project setup
 
+### Client Setup:
+```bash
+git clone https://github.com/ShahriarTWS/TutorHub_Client.git
+cd TutorHub_Client
+npm install
+# Create a .env file and add your Firebase config keys
+npm run dev
+
+```
+### Client Setup:
+
+```bash
+git https://github.com/ShahriarTWS/TutorHub_Server.git
+cd TutorHub_Server
+npm install
+# Create a .env file and add your MongoDB URI, JWT secret, Stripe keys
+nodemon index.js
+
+```
+
+### 👤 Admin Credentials
+- **Email:** `admin@tutorhub.com`  
+- **Password:** `@Admin00`
 
 ---
 
-> 💡 Built with ❤️ by Shahriar Nazim Joy.
+### 📁 Repositories
+- **Client:** [https://github.com/ShahriarTWS/TutorHub_Client.git](https://github.com/ShahriarTWS/TutorHub_Client.git)
+
+- **Client:** [https://github.com/ShahriarTWS/TutorHub_Server.git](https://github.com/ShahriarTWS/TutorHub_Server.git)
+
+---
+
+### 📌 Note
+This project was developed as part of my MERN stack learning journey. TutorHub gave me hands-on experience building a production-ready, full-featured app from scratch. Feedback is welcome!
+
+### 🧑‍💻 Author
+
+**Shahriar Nazim Joy**
+MERN Stack Developer (in learning stage)
+[`LinkedIn`](https://www.linkedin.com/in/snjoy420/) | [`Portfolio`](https://shahriar-dev.web.app/)
+
+---
+
+Let me know if you want:
+- A Markdown file download  
+- A Bengali version  
+- An additional section for future improvements or challenges faced during development.

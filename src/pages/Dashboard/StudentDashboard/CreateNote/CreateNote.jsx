@@ -47,7 +47,7 @@ const CreateNote = () => {
     };
 
     return (
-        <div className="max-w-3xl mx-auto p-6 bg-white rounded shadow-md">
+        <div className="max-w-3xl mx-auto p-6 bg-base-200 rounded shadow-md">
             <h2 className="text-2xl font-bold mb-6 text-center">Create a New Note</h2>
 
             {message && (
@@ -70,7 +70,7 @@ const CreateNote = () => {
                         type="email"
                         value={user?.email || ''}
                         readOnly
-                        className="input input-bordered w-full bg-gray-100 cursor-not-allowed"
+                        className="input input-bordered w-full cursor-not-allowed"
                     />
                 </div>
 
