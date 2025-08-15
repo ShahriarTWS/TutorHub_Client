@@ -11,7 +11,7 @@ import FeaturedStudySessions from '../StudySessions/FeaturedStudySessions';
 const Home = () => {
     return (
         <div>
-            <section className='w-11/12 md:w-10/12 mx-auto mb-6'>
+            <section className=''>
                 <Banner></Banner>
             </section>
             <section>

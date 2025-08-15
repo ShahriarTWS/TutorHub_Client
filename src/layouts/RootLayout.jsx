@@ -7,7 +7,7 @@ const RootLayout = () => {
     return (
         <div className='bg-base-100'>
             <header className="sticky top-0 z-50">
-                <nav className='my-4 '>
+                <nav className=''>
                     <Navbar />
                 </nav>
             </header>

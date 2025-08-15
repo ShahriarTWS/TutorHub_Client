@@ -19,12 +19,12 @@ const Navbar = () => {
     const handleLogout = () => {
         logOut()
             .then(result => {
-                console.log(result);
+                // console.log(result);
             })
             .catch(error => {
                 console.log(error);
             });
-        console.log('Logging out...');
+        // console.log('Logging out...');
     };
 
     const navLinks = (
@@ -111,8 +111,8 @@ const Navbar = () => {
     };
 
     return (
-        <div>
-            <div className="navbar md:w-10/12 w-11/12 mx-auto p-3 rounded-2xl bg-base-200/80 backdrop-blur-md ">
+        <div className='bg-base-200/80 backdrop-blur-2xl border-b border-primary/50'>
+            <div className="navbar md:w-10/12 w-11/12 mx-auto py-3 ">
 
                 <div className="navbar-start">
                     {/* Mobile device */}
@@ -120,7 +120,7 @@ const Navbar = () => {
                 </div>
 
                 {/* large device */}
-                <div className="navbar-center hidden lg:flex">
+                <div className="navbar-center hidden lg:flex font-semibold">
                     <ul className="menu menu-horizontal px-1 gap-2 text-base">{navLinks}</ul>
                 </div>
 

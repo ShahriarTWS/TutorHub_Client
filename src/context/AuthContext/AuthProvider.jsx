@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
             const token = await firebaseUser.getIdToken();
             // Send token to backend to set HTTP-only cookie
             await axios.post(
-                'https://learn-together-server-sigma.vercel.app/login',
+                'http://localhost:3000/login', //https://learn-together-server-sigma.vercel.app/
                 { token },
                 { withCredentials: true } // important for cookie!
             );
