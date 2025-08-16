@@ -66,7 +66,7 @@ const AllUsers = () => {
     const totalPages = data ? Math.ceil(data.total / ITEMS_PER_PAGE) : 1;
 
     return (
-        <div className="p-6 max-w-7xl mx-auto">
+        <div className="py-6 w-11/12 mx-auto">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
                 <h1 className="text-3xl font-bold text-center sm:text-left">Manage Users</h1>
                 <div className="flex gap-2 items-center">

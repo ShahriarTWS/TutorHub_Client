@@ -172,7 +172,7 @@ const DashboardLayout = () => {
                             />
                             <div>
                                 <h2 className="text-base font-semibold truncate">{user?.displayName || 'Dashboard'}</h2>
-                                <p className="text-xs text-gray-600 capitalize">{role || 'Loading...'}</p>
+                                <p className="text-xs capitalize">{role || 'Loading...'}</p>
                             </div>
                         </div>
 

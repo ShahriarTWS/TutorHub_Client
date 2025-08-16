@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
-import { Link } from 'react-router'; // ✅ Fixed import
+import { Link } from 'react-router'; // Fixed import
 
 const AdminStudySessions = () => {
     const axiosSecure = useAxiosSecure();
@@ -53,16 +53,16 @@ const AdminStudySessions = () => {
         onError: () => Swal.fire('❌ Error', 'Failed to reject session', 'error')
     });
 
-    if (isLoading) return <p className="text-center">Loading sessions...</p>;
+    if (isLoading) return <p className="text-center mt-10 text-lg font-medium">Loading sessions...</p>;
 
     return (
-        <div className="max-w-6xl mx-auto p-6">
-            <h1 className="text-3xl font-bold mb-6 text-center text-primary">All Study Sessions</h1>
+        <div className="w-11/12 mx-auto py-8">
+            <h1 className="text-3xl font-bold text-center mb-8 text-primary">All Study Sessions</h1>
 
-            {/* 🖥️ Table view for large screens */}
-            <div className="hidden lg:block">
-                <table className="table w-full">
-                    <thead className="bg-base-200">
+            {/* Large screen table */}
+            <div className="hidden lg:block overflow-x-auto rounded-lg shadow-lg border border-base-300">
+                <table className="table table-zebra w-full">
+                    <thead className="bg-primary text-primary-content">
                         <tr>
                             <th>Title</th>
                             <th>Tutor</th>
@@ -70,11 +70,11 @@ const AdminStudySessions = () => {
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="bg-base-200">
-                        {sessions.map((session) => (
-                            <tr key={session._id} className="border border-gray-300">
-                                <td className="border border-gray-300">{session.title}</td>
-                                <td className="border border-gray-300">
+                    <tbody>
+                        {sessions.map(session => (
+                            <tr key={session._id} className="hover:bg-base-200 transition-colors">
+                                <td>{session.title}</td>
+                                <td>
                                     <div className="flex items-center gap-3">
                                         <div className="avatar">
                                             <div className="w-10 rounded-full">
@@ -87,21 +87,16 @@ const AdminStudySessions = () => {
                                         </div>
                                     </div>
                                 </td>
-                                <td className="border border-gray-300">
+                                <td>
                                     <span
-                                        className={`badge text-base-100 ${session.status === 'approved'
-                                            ? 'badge-success'
-                                            : session.status === 'pending'
-                                                ? 'badge-warning'
-                                                : 'badge-error'
-                                            }`}
+                                        className={`badge ${session.status === 'approved' ? 'badge-success' : session.status === 'pending' ? 'badge-warning' : 'badge-error'} text-base-100`}
                                     >
                                         {session.status}
                                     </span>
                                 </td>
-                                <td className="border border-gray-300 space-x-2 ">
+                                <td className="space-x-2">
                                     <button
-                                        className="btn btn-sm btn-success text-base-100"
+                                        className="btn btn-sm btn-success"
                                         onClick={() => {
                                             setSelectedSession(session);
                                             setRegistrationFee(session.registrationFee || '');
@@ -110,27 +105,34 @@ const AdminStudySessions = () => {
                                         Approve
                                     </button>
                                     <button
-                                        className="btn btn-sm btn-error text-base-100"
+                                        className="btn btn-sm btn-error"
                                         onClick={() => setRejectSession(session)}
                                     >
                                         Reject
                                     </button>
+                                    <Link
+                                        to={`/dashboard/update-session/${session._id}`}
+                                        className="btn btn-sm btn-warning"
+                                    >
+                                        Update
+                                    </Link>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
-
                 </table>
             </div>
 
-            {/* 📱 Card view for mobile */}
-            <div className="lg:hidden grid gap-4">
+            {/* Mobile card view */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden">
                 {sessions.map(session => (
-                    <div key={session._id} className="card bg-base-100 shadow-md border">
-                        <figure><img src={session.image} alt={session.title} className="w-full h-40 object-cover" /></figure>
+                    <div key={session._id} className="card bg-base-100 shadow-md rounded-xl border border-base-200">
+                        <figure>
+                            <img src={session.image} alt={session.title} className="w-full h-40 object-cover rounded-t-xl" />
+                        </figure>
                         <div className="card-body">
                             <h2 className="card-title">{session.title}</h2>
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-3 mt-1">
                                 <div className="avatar">
                                     <div className="w-10 rounded-full">
                                         <img src={session.tutorImage} alt="Tutor" />
@@ -141,10 +143,10 @@ const AdminStudySessions = () => {
                                     <p className="text-sm opacity-70">{session.tutorEmail}</p>
                                 </div>
                             </div>
-                            <p><strong>Status:</strong> <span className={`badge ${session.status === 'approved' ? 'badge-success' : session.status === 'pending' ? 'badge-warning' : 'badge-error'}`}>{session.status}</span></p>
-                            <div className="card-actions justify-end mt-3">
+                            <p className="mt-2"><strong>Status:</strong> <span className={`badge ${session.status === 'approved' ? 'badge-success' : session.status === 'pending' ? 'badge-warning' : 'badge-error'} text-base-100`}>{session.status}</span></p>
+                            <div className="card-actions justify-center  md:justify-end mt-3 space-x-2">
                                 <button
-                                    className="btn btn-sm btn-success"
+                                    className="btn btn-sm btn-success text-white"
                                     onClick={() => {
                                         setSelectedSession(session);
                                         setRegistrationFee(session.registrationFee || '');
@@ -153,12 +155,12 @@ const AdminStudySessions = () => {
                                     Approve
                                 </button>
                                 <button
-                                    className="btn btn-sm btn-error"
+                                    className="btn btn-sm btn-error text-white"
                                     onClick={() => setRejectSession(session)}
                                 >
                                     Reject
                                 </button>
-                                <Link to={`/dashboard/update-session/${session._id}`} className="btn btn-sm btn-warning">
+                                <Link to={`/dashboard/update-session/${session._id}`} className="btn btn-sm btn-warning text-white">
                                     Update
                                 </Link>
                             </div>
@@ -167,7 +169,7 @@ const AdminStudySessions = () => {
                 ))}
             </div>
 
-            {/* ✅ Approval Modal */}
+            {/* Approval Modal */}
             {selectedSession && (
                 <dialog open className="modal modal-bottom sm:modal-middle" onClick={() => setSelectedSession(null)}>
                     <div className="modal-box max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
@@ -189,14 +191,11 @@ const AdminStudySessions = () => {
                             />
                         </div>
 
-                        <div className="modal-action mt-4">
+                        <div className="modal-action mt-4 justify-between">
                             <button
                                 className="btn btn-success"
                                 disabled={!registrationFee}
-                                onClick={() => approveMutation.mutate({
-                                    id: selectedSession._id,
-                                    fee: registrationFee
-                                })}
+                                onClick={() => approveMutation.mutate({ id: selectedSession._id, fee: registrationFee })}
                             >
                                 Confirm Approve
                             </button>
@@ -208,17 +207,11 @@ const AdminStudySessions = () => {
                 </dialog>
             )}
 
-            {/* ❌ Rejection Modal */}
-            {/* ❌ Rejection Modal */}
+            {/* Rejection Modal */}
             {rejectSession && (
                 <dialog open className="modal modal-bottom sm:modal-middle" onClick={() => setRejectSession(null)}>
                     <div className="modal-box max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-                        <img
-                            src={rejectSession.image}
-                            alt={rejectSession.title}
-                            className="w-full h-48 object-cover rounded-lg mb-4"
-                        />
-
+                        <img src={rejectSession.image} alt={rejectSession.title} className="w-full h-48 object-cover rounded-lg mb-4" />
                         <div className="flex items-center gap-3 mb-2">
                             <div className="avatar">
                                 <div className="w-10 rounded-full">
@@ -230,7 +223,6 @@ const AdminStudySessions = () => {
                                 <p className="text-sm opacity-70">{rejectSession.tutorEmail}</p>
                             </div>
                         </div>
-
                         <h3 className="text-xl font-bold">{rejectSession.title}</h3>
                         <p className="text-sm mt-2">{rejectSession.description}</p>
                         <p><strong>Duration:</strong> {rejectSession.duration}</p>
@@ -248,23 +240,17 @@ const AdminStudySessions = () => {
                             />
                         </div>
 
-                        <div className="modal-action mt-4">
+                        <div className="modal-action mt-4 justify-between">
                             <button
                                 className="btn btn-error"
                                 disabled={!feedback.trim()}
-                                onClick={() => rejectMutation.mutate({
-                                    id: rejectSession._id,
-                                    feedback: feedback.trim()
-                                })}
+                                onClick={() => rejectMutation.mutate({ id: rejectSession._id, feedback: feedback.trim() })}
                             >
                                 Submit Rejection
                             </button>
                             <button
                                 className="btn btn-outline"
-                                onClick={() => {
-                                    setRejectSession(null);
-                                    setFeedback('');
-                                }}
+                                onClick={() => { setRejectSession(null); setFeedback(''); }}
                             >
                                 Cancel
                             </button>
@@ -272,7 +258,6 @@ const AdminStudySessions = () => {
                     </div>
                 </dialog>
             )}
-
         </div>
     );
 };

@@ -150,7 +150,7 @@ const AdminMaterialsView = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto p-6 space-y-6">
+        <div className="w-11/12 mx-auto py-6 space-y-6">
             <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-4">
                 <h1 className="text-3xl font-bold text-primary">Admin - Study Materials</h1>
                 <div className="flex items-center gap-2">
