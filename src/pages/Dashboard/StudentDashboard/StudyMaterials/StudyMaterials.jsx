@@ -148,7 +148,7 @@ const StudyMaterials = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto px-6 py-10">
+        <div className="w-11/12 mx-auto py-10">
             <header className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
                 <h2 className="text-4xl font-extrabold text-primary">📚 Study Materials</h2>
                 <div className="flex gap-3 w-full max-w-lg">
@@ -159,13 +159,13 @@ const StudyMaterials = () => {
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
                     />
-                    <button
+                    {/* <button
                         disabled={!materials.length}
                         className="btn btn-outline btn-primary whitespace-nowrap"
                         onClick={exportMaterialsCSV}
                     >
                         Export Materials CSV
-                    </button>
+                    </button> */}
                 </div>
             </header>
 

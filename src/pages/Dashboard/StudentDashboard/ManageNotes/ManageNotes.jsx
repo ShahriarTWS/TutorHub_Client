@@ -60,7 +60,7 @@ const ManageNotes = () => {
     };
 
     return (
-        <div className="max-w-6xl mx-auto px-4 py-10">
+        <div className="w-11/12 mx-auto py-10">
             <h2 className="text-4xl font-extrabold text-center mb-10 text-primary">
                 📓 Manage My Notes
             </h2>
