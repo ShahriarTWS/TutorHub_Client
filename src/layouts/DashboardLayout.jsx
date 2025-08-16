@@ -44,6 +44,11 @@ const DashboardLayout = () => {
         if (role === 'admin') {
             return (
                 <>
+                    <NavLink to="/dashboard" className={'navClass flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition hover:bg-primary/10 hover:text-primary'}>
+                        <FaUsers className="w-5 h-5" />
+                        Dashboard
+                    </NavLink>
+
                     <NavLink to="/dashboard/view-users" className={navClass}>
                         <FaUsers className="w-5 h-5" />
                         View All Users
@@ -75,6 +80,11 @@ const DashboardLayout = () => {
         } else if (role === 'tutor') {
             return (
                 <>
+                    <NavLink to="/dashboard" className={'navClass flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition hover:bg-primary/10 hover:text-primary'}>
+                        <FaUsers className="w-5 h-5" />
+                        Dashboard
+                    </NavLink>
+
                     <NavLink to="/dashboard/view-study-sessions" className={navClass}>
                         <FaClipboardList className="w-5 h-5" />
                         My Study Sessions
@@ -96,6 +106,11 @@ const DashboardLayout = () => {
         } else {
             return (
                 <>
+                    <NavLink to="/dashboard" className={'navClass flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition hover:bg-primary/10 hover:text-primary'}>
+                        <FaUsers className="w-5 h-5" />
+                        Dashboard
+                    </NavLink>
+
                     <NavLink to="/dashboard/booked-sessions" className={navClass}>
                         <FaClipboardList className="w-5 h-5" />
                         My Booked Sessions

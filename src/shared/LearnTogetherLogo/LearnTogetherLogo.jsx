@@ -7,8 +7,8 @@ const LearnTogetherLogo = () => {
     return (
         <Link to={'/'}>
             <div className='flex items-center'>
-                <img className='md:h-12 h-6' src={vectorLogo} alt="" />
-                <p className='md:text-3xl text-xl md:-ml-12 -ml-5 font-extrabold'>TutorHub</p>
+                {/* <img className='md:h-12 h-6' src={vectorLogo} alt="" /> */}
+                <p className='md:text-5xl text-2xl  font-extrabold text-primary'>TutorHub</p>
             </div>
         </Link>
     );

@@ -33,7 +33,7 @@ const Navbar = () => {
                 <NavLink
                     to="/"
                     className={({ isActive }) =>
-                        `flex items-center text-base gap-2 ${isActive ? 'bg-primary text-base-100 font-semibold' : ''}`
+                        `flex items-center  gap-2 ${isActive ? 'bg-primary text-white font-semibold underline underline-offset-4' : ''}`
                     }
                 >
                     <FaHome className="inline md:hidden" />
@@ -45,7 +45,7 @@ const Navbar = () => {
                 <NavLink
                     to="/tutors"
                     className={({ isActive }) =>
-                        `flex items-center text-base gap-2 ${isActive ? 'bg-primary text-base-100  font-semibold' : ''}`
+                        `flex items-center  gap-2 ${isActive ? 'bg-primary text-white font-semibold underline underline-offset-4' : ''}`
                     }
                 >
                     <FaChalkboardTeacher className="inline md:hidden" />
@@ -57,7 +57,7 @@ const Navbar = () => {
                 <NavLink
                     to="/study-sessions"
                     className={({ isActive }) =>
-                        `flex items-center text-base gap-2 ${isActive ? 'bg-primary text-base-100 font-semibold' : ''}`
+                        `flex items-center  gap-2 ${isActive ? 'bg-primary text-white font-semibold underline underline-offset-4' : ''}`
                     }
                 >
                     <FaBookOpen className="inline md:hidden" />
@@ -111,7 +111,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className='bg-base-200/80 backdrop-blur-2xl border-b border-primary/50'>
+        <div className='backdrop-blur-2xl bg-base-200/80'>
             <div className="navbar md:w-10/12 w-11/12 mx-auto py-3 ">
 
                 <div className="navbar-start">
@@ -120,7 +120,7 @@ const Navbar = () => {
                 </div>
 
                 {/* large device */}
-                <div className="navbar-center hidden lg:flex font-semibold">
+                <div className="navbar-center hidden lg:flex font-semibold bg-base-100 px-4 rounded-xl">
                     <ul className="menu menu-horizontal px-1 gap-2 text-base">{navLinks}</ul>
                 </div>
 
