@@ -118,7 +118,7 @@ const MyMaterials = () => {
     };
 
     return (
-        <section className="w-11/12 md:w-10/12 mx-auto py-16">
+        <section className="w-11/12 mx-auto py-16">
             <h1 className="text-3xl font-bold mb-10 text-center text-primary">My Uploaded Materials</h1>
 
             {loading ? (

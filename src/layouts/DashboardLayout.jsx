@@ -16,6 +16,7 @@ import {
     FaBars,
     FaTimes,
     FaMoneyCheck,
+    FaTachometerAlt
 } from 'react-icons/fa';
 import LoadingPage from '../shared/Loading/LoadingPage';
 import LearnTogetherLogo from '../shared/LearnTogetherLogo/LearnTogetherLogo';
@@ -44,8 +45,13 @@ const DashboardLayout = () => {
         if (role === 'admin') {
             return (
                 <>
-                    <NavLink to="/dashboard" className={'navClass flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition hover:bg-primary/10 hover:text-primary'}>
-                        <FaUsers className="w-5 h-5" />
+                    <NavLink
+                        to="/dashboard"
+                        className={
+                            'navClass flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition hover:bg-primary/10 hover:text-primary'
+                        }
+                    >
+                        <FaTachometerAlt className="w-5 h-5" /> {/* Dashboard icon */}
                         Dashboard
                     </NavLink>
 
@@ -80,8 +86,13 @@ const DashboardLayout = () => {
         } else if (role === 'tutor') {
             return (
                 <>
-                    <NavLink to="/dashboard" className={'navClass flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition hover:bg-primary/10 hover:text-primary'}>
-                        <FaUsers className="w-5 h-5" />
+                    <NavLink
+                        to="/dashboard"
+                        className={
+                            'navClass flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition hover:bg-primary/10 hover:text-primary'
+                        }
+                    >
+                        <FaTachometerAlt className="w-5 h-5" /> {/* Dashboard icon */}
                         Dashboard
                     </NavLink>
 
@@ -106,8 +117,13 @@ const DashboardLayout = () => {
         } else {
             return (
                 <>
-                    <NavLink to="/dashboard" className={'navClass flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition hover:bg-primary/10 hover:text-primary'}>
-                        <FaUsers className="w-5 h-5" />
+                    <NavLink
+                        to="/dashboard"
+                        className={
+                            'navClass flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition hover:bg-primary/10 hover:text-primary'
+                        }
+                    >
+                        <FaTachometerAlt className="w-5 h-5" /> {/* Dashboard icon */}
                         Dashboard
                     </NavLink>
 

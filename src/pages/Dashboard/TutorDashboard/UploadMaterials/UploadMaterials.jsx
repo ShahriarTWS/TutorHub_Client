@@ -92,7 +92,7 @@ const UploadMaterials = () => {
     };
 
     return (
-        <div className="p-6 max-w-5xl mx-auto">
+        <div className="w-11/12 mx-auto">
             <h2 className="text-2xl font-bold mb-4 text-center">Upload Materials for Approved Sessions</h2>
 
             {isLoading ? (
@@ -109,7 +109,7 @@ const UploadMaterials = () => {
                             <p><strong>Duration:</strong> {session.duration || 'N/A'} mins</p>
                             <p><strong>Tutor:</strong> {session.tutorName} ({session.tutorEmail})</p>
                             <p><strong>Class Dates:</strong> {new Date(session.classStart).toLocaleDateString()} to {new Date(session.classEnd).toLocaleDateString()}</p>
-                            <p><strong>Registration Fee:</strong> ${session.registrationFee || 0}</p>
+                            <p><strong>Registration Fee:</strong> {session.registrationFee || 0} TAKA</p>
 
                             <button
                                 className="btn btn-sm btn-primary mt-2"

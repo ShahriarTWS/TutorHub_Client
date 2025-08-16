@@ -60,7 +60,7 @@ const MyStudySessions = () => {
     };
 
     return (
-        <div className="max-w-5xl mx-auto p-6">
+        <div className="w-11/12 mx-auto py-6">
             <h1 className="text-3xl font-bold mb-6 text-center text-primary">My Study Sessions</h1>
 
             {isLoading ? (
@@ -106,13 +106,13 @@ const MyStudySessions = () => {
                                 </td>
                                 <td className="flex flex-wrap gap-2">
                                     <button
-                                        className="btn btn-sm btn-info"
+                                        className="btn btn-sm btn-info text-base-100"
                                         onClick={() => setSelectedSession(session)}
                                     >
                                         View Info
                                     </button>
                                     <button
-                                        className="btn btn-sm btn-error"
+                                        className="btn btn-sm btn-error text-base-100"
                                         onClick={() => handleDelete(session._id)}
                                     >
                                         Delete
@@ -152,7 +152,7 @@ const MyStudySessions = () => {
                             <p>
                                 <strong>Status:</strong>{' '}
                                 <span className={`badge ${selectedSession.status === 'approved'
-                                    ? 'badge-success'
+                                    ? 'badge-success text-base-100'
                                     : selectedSession.status === 'pending'
                                         ? 'badge-warning'
                                         : selectedSession.status === 'rejected'
@@ -172,7 +172,7 @@ const MyStudySessions = () => {
                         <div className="modal-action mt-4 flex justify-between flex-wrap gap-2">
                             <button
                                 onClick={() => navigate(`/dashboard/update-session/${selectedSession._id}`)}
-                                className="btn btn-warning"
+                                className="btn btn-warning text-base-100"
                             >
                                 Update
                             </button>
