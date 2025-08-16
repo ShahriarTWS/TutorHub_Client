@@ -5,7 +5,7 @@ const ReviewCard = ({ review }) => {
     const { reviewerName, reviewerImage, rating, comment, date } = review;
 
     return (
-        <div className="w-full bg-base-100 rounded-2xl shadow-sm border border-gray-200/20 hover:shadow-xl transition-all duration-300 p-6 flex items-start gap-5">
+        <div className="w-full bg-base-200 rounded-2xl shadow-sm border border-gray-200/20 hover:shadow-xl transition-all duration-300 p-6 flex items-start gap-5">
             {/* Reviewer Image */}
             <div className="flex-shrink-0">
                 <img

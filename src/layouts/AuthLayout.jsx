@@ -6,9 +6,9 @@ import studying from '../assets/AuthImage/studying.svg';
 const AuthLayout = () => {
     return (
         <div className='flex  mx-auto'>
-            <div className='flex-1 p-10'>
+            <div className='flex-1 py-10 w-11/12 mx-auto'>
                 
-                <div className='mb-6'>
+                <div className='mb-6 px-4'>
                     <LearnTogetherLogo></LearnTogetherLogo>
                 </div>
                 <Outlet></Outlet>
