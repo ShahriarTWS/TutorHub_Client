@@ -148,13 +148,13 @@ const DashboardHome = () => {
 
     return (
         <div className="mt-10 w-11/12 mx-auto text-center space-y-5">
-            <div className="flex justify-center">{current.icon}</div>
+            {/* <div className="flex justify-center">{current.icon}</div> */}
             <h1 className="text-3xl font-bold">{current.title}</h1>
 
             {/* Admin Stats */}
             {role === 'admin' && (
                 <div className="mt-10 w-full mx-auto space-y-8">
-                    <div className="bg-primary/10 rounded-3xl p-6 md:p-10 shadow-lg border border-primary/30 flex flex-col md:flex-row gap-6 md:gap-10">
+                    <div className="bg-primary/10 rounded-3xl p-6 md:p-10 shadow-lg border border-primary/30 flex flex-col md:flex-row gap-6 md:gap-10 items-center">
                         <div className="flex-shrink-0 mx-auto md:mx-0">
                             <img
                                 src={profileInfo.photo}
@@ -350,8 +350,8 @@ const DashboardHome = () => {
 
             {/* Student Stats */}
             {role === 'student' && (
-                <div className="mt-10 px-4 md:px-10 space-y-8">
-                    <div className="bg-primary/10 rounded-3xl p-6 md:p-10 shadow-lg border border-primary/30 flex flex-col md:flex-row gap-8">
+                <div className="mt-10 space-y-8">
+                    <div className="bg-primary/10 rounded-3xl p-6 md:p-10 shadow-lg border border-primary/30 flex flex-col md:flex-row gap-8 items-center">
 
                         {/* Avatar */}
                         <div className="flex-shrink-0 relative">
@@ -371,7 +371,7 @@ const DashboardHome = () => {
                     </div>
 
                     {/* Student Stats Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
+                    {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
                         <Link to={'/dashboard/booked-sessions'}>
                             <div className="bg-primary/20 shadow-md rounded-2xl p-6 text-center border border-primary hover:shadow-xl transition">
                                 <FaBookOpen className="text-4xl text-primary mx-auto mb-2" />
@@ -379,7 +379,7 @@ const DashboardHome = () => {
                                 <p className="">Booked Sessions</p>
                             </div>
                         </Link>
-                    </div>
+                    </div> */}
                 </div>
             )}
         </div>

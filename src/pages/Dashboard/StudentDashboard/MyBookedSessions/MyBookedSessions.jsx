@@ -109,7 +109,7 @@ const MyBookedSessions = () => {
         <div className="w-11/12 mx-auto py-12">
             {/* Header */}
             <header className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
-                <h2 className="text-4xl font-extrabold text-primary">📚 My Booked Sessions</h2>
+                <h2 className="xl:text-3xl text-2xl font-extrabold text-primary">📚 My Booked Sessions</h2>
                 <div className="flex gap-3 w-full max-w-lg">
                     <input
                         type="text"
@@ -160,7 +160,7 @@ const MyBookedSessions = () => {
                                                     <img
                                                         src={session.image}
                                                         alt={session.title}
-                                                        className="w-3xl object-cover rounded-lg shadow-md"
+                                                        className="w-full  object-cover rounded-lg shadow-md"
                                                         loading="lazy"
                                                     />
                                                 )}

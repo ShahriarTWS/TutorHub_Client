@@ -12,9 +12,11 @@ import {
     FaMoon,
 } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
+import useRole from '../../hooks/useRole';
 
 const Navbar = () => {
     const { user, logOut } = useAuth();
+    const { role } = useRole();
 
     const handleLogout = () => {
         logOut()
@@ -33,7 +35,7 @@ const Navbar = () => {
                 <NavLink
                     to="/"
                     className={({ isActive }) =>
-                        `flex items-center  gap-2 ${isActive ? 'bg-primary text-white font-semibold underline underline-offset-4' : ''}`
+                        `flex items-center text-base gap-2 ${isActive ? 'bg-primary text-white font-semibold underline underline-offset-4' : ''}`
                     }
                 >
                     <FaHome className="inline md:hidden" />
@@ -45,7 +47,7 @@ const Navbar = () => {
                 <NavLink
                     to="/tutors"
                     className={({ isActive }) =>
-                        `flex items-center  gap-2 ${isActive ? 'bg-primary text-white font-semibold underline underline-offset-4' : ''}`
+                        `flex items-center text-base gap-2 ${isActive ? 'bg-primary text-white font-semibold underline underline-offset-4' : ''}`
                     }
                 >
                     <FaChalkboardTeacher className="inline md:hidden" />
@@ -57,7 +59,7 @@ const Navbar = () => {
                 <NavLink
                     to="/study-sessions"
                     className={({ isActive }) =>
-                        `flex items-center  gap-2 ${isActive ? 'bg-primary text-white font-semibold underline underline-offset-4' : ''}`
+                        `flex items-center text-base gap-2 ${isActive ? 'bg-primary text-white font-semibold underline underline-offset-4' : ''}`
                     }
                 >
                     <FaBookOpen className="inline md:hidden" />
@@ -126,6 +128,15 @@ const Navbar = () => {
 
                 {/* Right side (profile or login + theme toggle) */}
                 <div className="navbar-end flex items-center gap-3">
+                    <div className='hidden md:block'>
+                        {
+                            user && <Link to="/become-tutor">
+                                <button className="btn btn-primary px-6 py-2 hover:scale-105 transition-transform duration-300">
+                                    Join as Tutor
+                                </button>
+                            </Link>
+                        }
+                    </div>
                     {/* Theme toggle button */}
                     <button
                         onClick={toggleTheme}
@@ -153,6 +164,9 @@ const Navbar = () => {
 
                                 {/* Mobile navLinks inside dropdown */}
                                 <div className="lg:hidden">{navLinks}</div>
+                                {/* <ul className="lg:hidden text-base">
+                                    {navLinks}
+                                </ul> */}
 
                                 <li>
                                     <Link to="/dashboard" className="flex items-center text-base gap-2">
