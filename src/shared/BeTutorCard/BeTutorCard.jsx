@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { GraduationCap } from 'lucide-react';
-import tutorIllustration from '../../assets/banner/gummy-app-development.svg';
+import tutorIllustration from '../../assets/banner/tutorimg.svg';
 
 const BeTutorCard = () => {
     return (
@@ -9,7 +9,7 @@ const BeTutorCard = () => {
 
             {/* Left content: Text and button */}
             <div className="w-full md:w-1/2 space-y-6 text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start gap-3 text-primary text-4xl md:text-5xl font-extrabold">
+                <div className="flex items-center justify-center md:justify-start gap-3 text-primary md:text-4xl xl:text-5xl font-extrabold">
                     <GraduationCap size={42} className="text-gradient" />
                     <span className="bg-clip-text text-transparent bg-primary">
                         Be a Tutor

@@ -32,7 +32,7 @@ const FaqAccordion = () => {
     };
 
     return (
-        <section className="max-w-4xl mx-auto px-4 py-12">
+        <section className="md:max-w-4xl w-10/12 mx-auto py-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
             <div className="space-y-4">
                 {faqs.map((faq, index) => (
