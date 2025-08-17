@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import LoadingShapes from '../../../shared/Loading/LoadingPage';
-import { FaUserShield, FaChalkboardTeacher, FaUserGraduate, FaUsers, FaCheckCircle, FaHourglassHalf, FaBookOpen } from 'react-icons/fa';
+import { FaUserShield, FaChalkboardTeacher, FaUserGraduate, FaUsers, FaCheckCircle, FaHourglassHalf, FaBookOpen,FaStickyNote, FaFileAlt } from 'react-icons/fa';
 import useAuth from '../../../hooks/useAuth';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 
@@ -11,6 +11,7 @@ const DashboardHome = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
+    const [searchTerm, setSearchTerm] = useState('');
 
     // ✅ Fetch user role
     const { data: roleData, isLoading: roleLoading } = useQuery({
@@ -71,6 +72,31 @@ const DashboardHome = () => {
     });
 
     // ✅ Student-specific sessions
+
+    // ✅ Student-specific sessions
+    const { data: payments = [], isLoading: paymentsLoading } = useQuery({
+        queryKey: ['payments', user?.email],
+        enabled: !!user?.email,
+        queryFn: async () => (await axiosSecure.get(`/payments/user/${user.email}`)).data,
+    });
+
+    const { data: allSessions = [], } = useQuery({
+        queryKey: ['sessions'],
+        enabled: !!user?.email,
+        queryFn: async () => (await axiosSecure.get('/sessions')).data,
+    });
+
+    const sessionIdToTitle = {};
+    allSessions.forEach(s => (sessionIdToTitle[s._id] = s.title));
+
+    const filtered = payments.filter(p => {
+        const title = sessionIdToTitle[p.sessionId] || '';
+        return (
+            title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            new Date(p.date).toLocaleDateString().includes(searchTerm)
+        );
+    });
+
     const { data: studentSessions = [], isLoading: studentSessionsLoading } = useQuery({
         queryKey: ['student-sessions', user?.email],
         queryFn: async () => {
@@ -178,7 +204,7 @@ const DashboardHome = () => {
                                 <BarChart data={adminChartData}>
                                     <XAxis dataKey="name" />
                                     <YAxis />
-                                    <Tooltip/>
+                                    <Tooltip />
                                     <Bar dataKey="count" fill="#2563EB" />
                                 </BarChart>
                             </ResponsiveContainer>
@@ -371,15 +397,39 @@ const DashboardHome = () => {
                     </div>
 
                     {/* Student Stats Cards */}
-                    {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
                         <Link to={'/dashboard/booked-sessions'}>
                             <div className="bg-primary/20 shadow-md rounded-2xl p-6 text-center border border-primary hover:shadow-xl transition">
                                 <FaBookOpen className="text-4xl text-primary mx-auto mb-2" />
-                                <h2 className="text-2xl font-bold">{enrolledSessions}</h2>
+                                <h2 className="text-2xl font-bold">{filtered?.length}</h2>
                                 <p className="">Booked Sessions</p>
                             </div>
                         </Link>
-                    </div> */}
+
+                        <Link to={'/dashboard/manage-notes'}>
+                            <div className="bg-primary/20 shadow-md rounded-2xl p-6 text-center border border-primary hover:shadow-xl transition">
+                                <FaStickyNote className="text-4xl text-primary mx-auto mb-2" />
+                                <h2 className="text-2xl font-bold">{enrolledSessions}</h2>
+                                <p className="">Manage Notes</p>
+                            </div>
+                        </Link>
+
+                        <Link to={'/dashboard/study-materials'}>
+                            <div className="bg-primary/20 shadow-md rounded-2xl p-6 text-center border border-primary hover:shadow-xl transition">
+                                <FaFileAlt className="text-4xl text-primary mx-auto mb-2" />
+                                <h2 className="text-2xl font-bold">{enrolledSessions}</h2>
+                                <p className="">View Study Materials</p>
+                            </div>
+                        </Link>
+
+                        <Link to={'/study-sessions'}>
+                            <div className="bg-primary/20 shadow-md rounded-2xl p-6 text-center border border-primary hover:shadow-xl transition">
+                                <FaChalkboardTeacher className="text-4xl text-primary mx-auto mb-2" />
+                                <h2 className="text-2xl font-bold">{enrolledSessions}</h2>
+                                <p className="">View All Sessions</p>
+                            </div>
+                        </Link>
+                    </div>
                 </div>
             )}
         </div>

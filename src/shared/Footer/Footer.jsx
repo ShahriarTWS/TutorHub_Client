@@ -11,7 +11,7 @@ const Footer = () => {
                     to="/"
                     className={({ isActive }) =>
                         `flex items-center gap-2 py-1 transition-colors ${
-                            isActive ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary'
+                            isActive ? 'text-primary font-semibold' : 'hover:text-primary'
                         }`
                     }
                 >
@@ -25,7 +25,7 @@ const Footer = () => {
                     to="/tutors"
                     className={({ isActive }) =>
                         `flex items-center gap-2 py-1 transition-colors ${
-                            isActive ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary'
+                            isActive ? 'text-primary font-semibold' : 'hover:text-primary'
                         }`
                     }
                 >
@@ -39,7 +39,7 @@ const Footer = () => {
                     to="/study-sessions"
                     className={({ isActive }) =>
                         `flex items-center gap-2 py-1 transition-colors ${
-                            isActive ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary'
+                            isActive ? 'text-primary font-semibold' : 'hover:text-primary'
                         }`
                     }
                 >
@@ -53,7 +53,7 @@ const Footer = () => {
                     to="/dashboard"
                     className={({ isActive }) =>
                         `flex items-center gap-2 py-1 transition-colors ${
-                            isActive ? 'text-primary font-semibold' : 'text-gray-600 hover:text-primary'
+                            isActive ? 'text-primary font-semibold' : 'hover:text-primary'
                         }`
                     }
                 >
@@ -66,15 +66,15 @@ const Footer = () => {
 
     return (
         <footer className="bg-base-200 text-base-content">
-            <div className="md:w-10/12 w-11/12 mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+            <div className="md:w-10/12 w-11/12 mx-auto py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
 
                 {/* Brand Info */}
                 <div>
-                    <h2 className="text-2xl font-bold text-primary mb-4">TutorHub</h2>
-                    <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                    <h2 className="text-5xl font-bold text-primary mb-4">TutorHub</h2>
+                    <p className="text-sm  leading-relaxed mb-4">
                         Your collaborative education partner —<br /> where students and tutors meet, learn, and grow together.
                     </p>
-                    <div className="space-y-2 text-sm text-gray-500">
+                    <div className="space-y-2 text-sm ">
                         <div className="flex items-center gap-2">
                             <Mail size={16} /> support@tutorhub.com
                         </div>
@@ -96,12 +96,12 @@ const Footer = () => {
                 {/* Social Links */}
                 <div>
                     <h3 className="text-lg font-semibold mb-4 text-primary">Follow Us</h3>
-                    <div className="flex gap-4 text-gray-600">
+                    <div className="flex gap-4 ">
                         <a href="https://www.facebook.com/snjoy.420" className="hover:text-primary transition-colors"><Facebook size={20} /></a>
                         <a href="https://github.com/ShahriarTWS" className="hover:text-primary transition-colors"><GithubIcon size={20} /></a>
                         <a href="https://www.linkedin.com/in/snjoy420" className="hover:text-primary transition-colors"><Linkedin size={20} /></a>
                     </div>
-                    <p className="text-xs text-gray-500 mt-4">
+                    <p className="text-xs  mt-4">
                         Join us for updates, tips, and events.
                     </p>
                 </div>
