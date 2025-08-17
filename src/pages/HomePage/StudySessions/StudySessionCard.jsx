@@ -160,10 +160,10 @@ const StudySessionCard = (session) => {
 
                         {role === 'student' && !roleLoading && isOngoing && (
                             <div className="mt-6 text-right">
-                                <button 
-                                    className="btn btn-primary" 
+                                <button
+                                    className="btn btn-primary"
                                     onClick={handleEnroll}
-                                    disabled={hasEnrolled} 
+                                    disabled={hasEnrolled}
                                 >
                                     {hasEnrolled ? 'Enrolled' : 'Enroll'}
                                 </button>

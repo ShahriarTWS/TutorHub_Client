@@ -32,7 +32,8 @@ const AllTutors = () => {
         .filter(tutor => tutor.status === 'approved') // Only approved tutors
         .filter(tutor =>
             tutor.name?.toLowerCase().includes(searchText.toLowerCase()) ||
-            tutor.email?.toLowerCase().includes(searchText.toLowerCase())
+            tutor.email?.toLowerCase().includes(searchText.toLowerCase()) ||
+            tutor.speciality?.toLowerCase().includes(searchText.toLowerCase()) // ✅ Added speciality search
         );
 
 
@@ -63,7 +64,7 @@ const AllTutors = () => {
                     <input
                         type="text"
                         className="input input-bordered w-full"
-                        placeholder="Search by name or email"
+                        placeholder="Search by name, speciality or email"
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
                     />
