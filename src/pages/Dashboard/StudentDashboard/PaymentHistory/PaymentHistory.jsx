@@ -84,21 +84,21 @@ const PaymentHistory = () => {
                 {displayedPayments.map((p, index) => (
                     <div
                         key={p._id}
-                        className="bg-white shadow-md rounded-xl border border-gray-200 p-6 transition-transform hover:scale-[1.02] w-full"
+                        className="bg-base-200 shadow-md rounded-xl border border-gray-200 p-6 transition-transform hover:scale-[1.02] w-full"
                     >
                         <div className="flex justify-between items-center mb-3">
-                            <h3 className="text-xl font-semibold text-secondary truncate w-3/4">
+                            <h3 className="text-xl font-semibold truncate w-3/4">
                                 {sessionIdToTitle[p.sessionId] || 'Unknown Title'}
                             </h3>
-                            <p className="text-green-600 font-bold text-lg">৳{p.amount}</p>
+                            <p className="text-secondary font-bold text-lg">৳{p.amount}</p>
                         </div>
-                        <p className="text-gray-600 mb-1">
+                        <p className=" mb-1">
                             <span className="font-semibold">Transaction ID:</span> {p.transactionId}
                         </p>
-                        <p className="text-gray-600 mb-1">
+                        <p className=" mb-1">
                             <span className="font-semibold">Paid At:</span> {new Date(p.date).toLocaleString()}
                         </p>
-                        <p className="text-gray-500 text-sm"># {(currentPage - 1) * itemsPerPage + index + 1}</p>
+                        <p className=" text-sm"># {(currentPage - 1) * itemsPerPage + index + 1}</p>
                     </div>
                 ))}
             </div>

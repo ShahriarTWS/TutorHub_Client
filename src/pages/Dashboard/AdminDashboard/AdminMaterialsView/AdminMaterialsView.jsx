@@ -21,6 +21,7 @@ const AdminMaterialsView = () => {
     const [search, setSearch] = useState('');
     const [groupedMaterials, setGroupedMaterials] = useState({});
     const [sessionMap, setSessionMap] = useState({});
+    const [expandedDesc, setExpandedDesc] = useState({}); // 👈 Track expanded descriptions
 
     const [currentPage, setCurrentPage] = useState(1);
     const materialsPerPage = 4;
@@ -149,10 +150,36 @@ const AdminMaterialsView = () => {
         });
     };
 
+    // ✅ Toggle description expand
+    const toggleDesc = (id) => {
+        setExpandedDesc(prev => ({ ...prev, [id]: !prev[id] }));
+    };
+
+    const renderDescription = (desc, id) => {
+        if (!desc) return '-';
+        const isExpanded = expandedDesc[id];
+        const shortDesc = desc.slice(0, 100);
+        return (
+            <div>
+                <p className="text-sm inline">
+                    {isExpanded ? desc : shortDesc}
+                    {desc.length > 100 && (
+                        <button
+                            className="ml-2 text-blue-600 hover:underline"
+                            onClick={() => toggleDesc(id)}
+                        >
+                            {isExpanded ? 'See Less' : 'See More'}
+                        </button>
+                    )}
+                </p>
+            </div>
+        );
+    };
+
     return (
         <div className="w-11/12 mx-auto py-6 space-y-6">
             <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-4">
-                <h1 className="text-3xl font-bold text-primary">Admin - Study Materials</h1>
+                <h1 className="text-3xl font-bold ">Admin - Study Materials</h1>
                 <div className="flex items-center gap-2">
                     <input
                         type="text"
@@ -188,7 +215,7 @@ const AdminMaterialsView = () => {
                             {materials.map((material) => (
                                 <tr key={material._id}>
                                     <td>{material.title}</td>
-                                    <td>{material.description}</td>
+                                    <td>{renderDescription(material.description, material._id)}</td>
                                     <td>{material.resourceLink ? <a href={material.resourceLink} className="link link-primary" target="_blank" rel="noreferrer">Link</a> : '-'}</td>
                                     <td>{material.fileURL ? <a href={material.fileURL} className="link link-primary" target="_blank" rel="noreferrer">File</a> : '-'}</td>
                                     <td>{material.uploadedBy}</td>
@@ -209,12 +236,12 @@ const AdminMaterialsView = () => {
                 <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
                     {paginatedSessionIds.map(sessionId => (
                         <div key={sessionId} className=" rounded-lg shadow p-5 bg-base-200">
-                            <h2 className="text-xl font-bold text-secondary mb-3">{sessionMap[sessionId] || 'Session Title Not Found'}</h2>
+                            <h2 className="text-xl font-bold  mb-3">{sessionMap[sessionId] || 'Session Title Not Found'}</h2>
                             <div className="space-y-4">
                                 {groupedMaterials[sessionId].map(mat => (
                                     <div key={mat._id} className="bg-base-100 p-4 rounded shadow ">
                                         <h3 className="text-lg font-semibold">{mat.title}</h3>
-                                        <p className="text-sm">{mat.description}</p>
+                                        {renderDescription(mat.description, mat._id)}
                                         <p className="text-xs text-gray-600 mb-1"><strong>Uploader:</strong> {mat.uploadedBy}</p>
                                         {mat.resourceLink && (
                                             <a href={mat.resourceLink} target="_blank" rel="noreferrer" className="text-blue-600 underline block">
@@ -227,8 +254,8 @@ const AdminMaterialsView = () => {
                                             </a>
                                         )}
                                         <div className="flex gap-2 mt-3 justify-end">
-                                            <button className="btn btn-sm btn-info" onClick={() => openModal(mat)}><FaEdit /></button>
-                                            <button className="btn btn-sm btn-error" onClick={() => deleteMaterial(mat._id)}><FaTrash /></button>
+                                            <button className="btn btn-info text-white" onClick={() => openModal(mat)}><FaEdit />Update</button>
+                                            <button className="btn btn-error text-white" onClick={() => deleteMaterial(mat._id)}><FaTrash />Delete</button>
                                         </div>
                                     </div>
                                 ))}
@@ -256,7 +283,7 @@ const AdminMaterialsView = () => {
             {/* Update Modal */}
             {selectedMaterial && (
                 <dialog open className="modal modal-bottom sm:modal-middle" onClick={() => setSelectedMaterial(null)}>
-                    <div className="modal-box max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+                    <div className="modal-box max-h-[90vh] w-11/12 sm:w-4/5 md:w-3/5 lg:w-1/2 overflow-y-auto" onClick={e => e.stopPropagation()}>
                         <h3 className="text-xl font-bold mb-4">Update Material</h3>
                         <form onSubmit={handleUpdate} className="space-y-3">
                             <input name="title" value={materialForm.title} onChange={handleChange} className="input input-bordered w-full" placeholder="Title" required />

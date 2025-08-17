@@ -187,10 +187,10 @@ const StudyMaterials = () => {
                                         <h3 className="card-title text-2xl text-secondary font-semibold truncate">{title}</h3>
                                         <p className="text-lg font-semibold text-yellow-600 whitespace-nowrap">Paid: ৳{payment.amount}</p>
                                     </div>
-                                    <p className="text-gray-500 mt-1">
+                                    <p className=" mt-1">
                                         <span className="font-semibold">Transaction ID:</span> {payment.transactionId}
                                     </p>
-                                    <p className="text-gray-500">
+                                    <p className="">
                                         <span className="font-semibold">Date:</span> {new Date(payment.date).toLocaleString()}
                                     </p>
 
@@ -216,13 +216,13 @@ const StudyMaterials = () => {
                                                             <img
                                                                 src={session.image}
                                                                 alt={session.title}
-                                                                className="mx-auto mb-6 rounded-lg max-h-64 object-cover shadow-md"
+                                                                className="mx-auto mb-6 rounded-lg w-full object-cover shadow-md"
                                                                 loading="lazy"
                                                             />
                                                         )}
                                                         <h4 className="text-3xl font-bold mb-3">{session?.title}</h4>
-                                                        <p className="text-gray-700 leading-relaxed mb-5">{session?.description}</p>
-                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-600 text-lg">
+                                                        <p className=" leading-relaxed mb-5">{session?.description}</p>
+                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
                                                             <div className="space-y-1">
                                                                 <p><span className="font-semibold">Tutor:</span> {session?.tutorName}</p>
                                                                 <p>

@@ -134,16 +134,16 @@ const MyBookedSessions = () => {
                         return (
                             <article
                                 key={payment._id}
-                                className="bg-white shadow-lg rounded-xl border border-gray-200 overflow-hidden transition-transform hover:scale-[1.01]"
+                                className="bg-base-200 shadow-lg rounded-xl border border-gray-200/20 overflow-hidden transition-transform hover:scale-[1.01]"
                             >
                                 {/* Card Header */}
                                 <div
-                                    className="flex justify-between items-center px-6 py-4 cursor-pointer bg-gray-50"
+                                    className="flex justify-between items-center px-6 py-4 cursor-pointer bg-base-200"
                                     onClick={() => toggleExpand(sessionId)}
                                 >
-                                    <h3 className="text-2xl font-semibold text-secondary truncate">{title}</h3>
+                                    <h3 className="text-2xl font-semibold truncate">{title}</h3>
                                     <div className="flex items-center gap-6">
-                                        <p className="text-lg font-semibold text-yellow-600">৳{payment.amount}</p>
+                                        <p className="text-lg font-semibold text-secondary">৳{payment.amount}</p>
                                         {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
                                     </div>
                                 </div>
@@ -164,7 +164,7 @@ const MyBookedSessions = () => {
                                                         loading="lazy"
                                                     />
                                                 )}
-                                                <div className="grid md:grid-cols-2 gap-6 text-gray-700">
+                                                <div className="grid md:grid-cols-2 gap-6 ">
                                                     <div className="space-y-1">
                                                         <p><span className="font-semibold">Tutor:</span> {session?.tutorName}</p>
                                                         <p><span className="font-semibold">Registration:</span> {new Date(session?.registrationStart).toLocaleDateString()} - {new Date(session?.registrationEnd).toLocaleDateString()}</p>

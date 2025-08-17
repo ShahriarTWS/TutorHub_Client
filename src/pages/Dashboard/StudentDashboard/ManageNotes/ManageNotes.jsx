@@ -74,7 +74,7 @@ const ManageNotes = () => {
                     {notes.map((note) => (
                         <div
                             key={note._id}
-                            className="bg-white border border-gray-200 rounded-xl shadow-md transition duration-200 hover:shadow-lg"
+                            className="bg-base-200 border border-gray-200 rounded-xl shadow-md transition duration-200 hover:shadow-lg"
                         >
                             <div
                                 className="cursor-pointer flex items-center justify-between px-5 py-4"
@@ -82,24 +82,24 @@ const ManageNotes = () => {
                                     setExpandedNoteId((prev) => (prev === note._id ? null : note._id))
                                 }
                             >
-                                <h3 className="text-lg font-semibold text-gray-800">{note.title}</h3>
+                                <h3 className="text-lg font-semibold ">{note.title}</h3>
                                 <span className="text-sm text-primary">
                                     {expandedNoteId === note._id ? '▲ Hide' : '▼ Show'}
                                 </span>
                             </div>
 
                             {expandedNoteId === note._id && (
-                                <div className="px-5 pb-4 text-gray-700 border-t border-gray-100">
+                                <div className="px-5 pb-4  border-t border-gray-100">
                                     <p className="whitespace-pre-line py-4">{note.content}</p>
                                     <div className="flex justify-end gap-2">
                                         <button
-                                            className="btn btn-sm btn-warning"
+                                            className="btn btn-warning"
                                             onClick={() => setEditingNote(note)}
                                         >
                                             Edit
                                         </button>
                                         <button
-                                            className="btn btn-sm btn-error"
+                                            className="btn btn-error"
                                             onClick={() => handleDelete(note._id)}
                                         >
                                             Delete

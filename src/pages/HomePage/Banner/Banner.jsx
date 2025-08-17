@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 const Banner = () => {
     return (
         <section
-            className="relative min-h-screen -mt-15 flex items-center justify-center"
+            className="relative min-h-screen flex items-center justify-center"
             style={{
                 backgroundImage: `url(${bimg})`,
                 backgroundSize: 'cover',

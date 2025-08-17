@@ -53,7 +53,7 @@ const AllTutors = () => {
     }
 
     return (
-        <div className="py-16 w-11/12 mx-auto">
+        <div className="py-16 w-11/12 md:w-10/12 mx-auto">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-center flex items-center justify-center gap-2">
                 <FaChalkboardTeacher className="text-primary" /> All Tutors
             </h2>

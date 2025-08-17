@@ -114,7 +114,7 @@ const AllUsers = () => {
                                 </div>
                                 <h2 className="card-title text-lg">{user.name}</h2>
                                 <p className="text-sm text-gray-600">{user.email}</p>
-                                <p className="badge badge-info capitalize mt-1">{user.role}</p>
+                                <p className="badge badge-primary capitalize mt-1 text-white">{user.role}</p>
 
                                 <div className="mt-4 w-full">
                                     <select
@@ -143,7 +143,7 @@ const AllUsers = () => {
             {/* Table View */}
             {!isLoading && data && data.users.length > 0 && viewMode === 'table' && (
                 <div className="overflow-x-auto mt-4">
-                    <table className="table w-full border border-gray-300">
+                    <table className="table w-full border border-gray-200/20">
                         <thead className="bg-base-300">
                             <tr>
                                 <th className="px-4 py-2 text-left">S/N</th>
@@ -159,7 +159,7 @@ const AllUsers = () => {
                             {data.users.map((user, index) => (
                                 <tr
                                     key={user._id}
-                                    className="hover:bg-base-100 border-b border-gray-300 bg-base-200 transition-all duration-200"
+                                    className="hover:bg-base-100 border-b border-gray-200/20 bg-base-200 transition-all duration-200"
                                 >
                                     <td className="px-4 py-2">{(currentPage - 1) * ITEMS_PER_PAGE + index + 1}</td>{/* */}
                                     <td className="px-4 py-2">

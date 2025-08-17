@@ -92,7 +92,7 @@ const UploadMaterials = () => {
     };
 
     return (
-        <div className="w-11/12 mx-auto">
+        <div className="w-11/12 mx-auto my-8">
             <h2 className="text-2xl font-bold mb-4 text-center">Upload Materials for Approved Sessions</h2>
 
             {isLoading ? (
@@ -112,7 +112,7 @@ const UploadMaterials = () => {
                             <p><strong>Registration Fee:</strong> {session.registrationFee || 0} TAKA</p>
 
                             <button
-                                className="btn btn-sm btn-primary mt-2"
+                                className="btn btn-primary mt-2"
                                 onClick={() => {
                                     setSelectedSession(session);
                                     setTitle('');

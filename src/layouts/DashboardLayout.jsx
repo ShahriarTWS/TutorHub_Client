@@ -52,7 +52,7 @@ const DashboardLayout = () => {
                         }
                     >
                         <FaTachometerAlt className="w-5 h-5" /> {/* Dashboard icon */}
-                        Dashboard
+                        Overview
                     </NavLink>
 
                     <NavLink to="/dashboard/view-users" className={navClass}>
@@ -93,7 +93,7 @@ const DashboardLayout = () => {
                         }
                     >
                         <FaTachometerAlt className="w-5 h-5" /> {/* Dashboard icon */}
-                        Dashboard
+                        Overview
                     </NavLink>
 
                     <NavLink to="/dashboard/view-study-sessions" className={navClass}>
@@ -124,7 +124,7 @@ const DashboardLayout = () => {
                         }
                     >
                         <FaTachometerAlt className="w-5 h-5" /> {/* Dashboard icon */}
-                        Dashboard
+                        Overview
                     </NavLink>
 
                     <NavLink to="/dashboard/booked-sessions" className={navClass}>

@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import LoadingShapes from '../../../shared/Loading/LoadingPage';
-import { FaUserShield, FaChalkboardTeacher, FaUserGraduate, FaUsers, FaCheckCircle, FaHourglassHalf, FaBookOpen,FaStickyNote, FaFileAlt } from 'react-icons/fa';
+import { FaUserShield, FaChalkboardTeacher, FaUserGraduate, FaUsers, FaCheckCircle, FaHourglassHalf, FaBookOpen, FaStickyNote, FaFileAlt } from 'react-icons/fa';
 import useAuth from '../../../hooks/useAuth';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 
@@ -12,6 +12,7 @@ const DashboardHome = () => {
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
     const [searchTerm, setSearchTerm] = useState('');
+    const [expandedId, setExpandedId] = useState(null);
 
     // ✅ Fetch user role
     const { data: roleData, isLoading: roleLoading } = useQuery({
@@ -71,7 +72,30 @@ const DashboardHome = () => {
         enabled: role === 'tutor' && !!user?.email,
     });
 
+    const [isOpen, setIsOpen] = useState(false); // single toggle for all sections
+
+    const tutor = tutorsData?.find(t => t.email === user.email);
+
+
     // ✅ Student-specific sessions
+
+    const { data: notes = [], isLoading, refetch } = useQuery({
+        queryKey: ['notes', user?.email],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/notes/${user?.email}`);
+            return res.data;
+        },
+        enabled: !!user?.email,
+    });
+
+    const { data: materials = [], isLoading: materialsLoading } = useQuery({
+        queryKey: ['materials', expandedId, user?.email],
+        enabled: !!expandedId && !!user?.email,
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/materials/session/${expandedId}/student/${user.email}`);
+            return res.data;
+        },
+    });
 
     // ✅ Student-specific sessions
     const { data: payments = [], isLoading: paymentsLoading } = useQuery({
@@ -189,10 +213,10 @@ const DashboardHome = () => {
                             />
                         </div>
                         <div className="flex-1 space-y-2 md:space-y-3 text-center md:text-left">
-                            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-primary">{profileInfo.name}</h2>
-                            <p className=" text-sm sm:text-base"><strong>Email:</strong> {profileInfo.email}</p>
-                            <p className=" text-sm sm:text-base"><strong>Account Created:</strong> {new Date(profileInfo.createdAt).toLocaleDateString()}</p>
-                            <p className=" text-sm sm:text-base"><strong>Last Login:</strong> {new Date(profileInfo.lastLogin).toLocaleDateString()}</p>
+                            <h2 className="text-2xl md:text-3xl font-bold text-primary">{profileInfo.name}</h2>
+                            <p className=" flex items-center gap-2 md:text-lg">Email: {profileInfo.email}</p>
+                            <p className=" flex items-center gap-2 md:text-lg">🗓 Account Created: {new Date(profileInfo.createdAt).toLocaleDateString()}</p>
+                            <p className=" flex items-center gap-2 md:text-lg">🗓 Last Login: {new Date(profileInfo.lastLogin).toLocaleDateString()}</p>
                         </div>
                     </div>
 
@@ -210,7 +234,7 @@ const DashboardHome = () => {
                             </ResponsiveContainer>
                         </div>
                         <div className="md:flex-1">
-                            <h3 className="text-xl font-bold text-primary mb-4 text-left">Admin Pie Chart</h3>
+                            <h3 className="text-xl font-bold text-primary mb-4 ">Admin Pie Chart</h3>
                             <ResponsiveContainer width="100%" height={250}>
                                 <PieChart>
                                     <Pie data={adminChartData} dataKey="count" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
@@ -260,53 +284,87 @@ const DashboardHome = () => {
 
             {/* Tutor Stats */}
             {role === 'tutor' && (
-                <div className="mt-10  space-y-8">
-                    <div className="mt-10 bg-primary/10 rounded-3xl p-6 md:p-10 shadow-lg border border-primary/30 flex flex-col md:flex-row gap-8">
+                <div className="mt-10">
+                    <div className="mx-auto bg-base-100 rounded-3xl shadow-lg border border-primary/30 overflow-hidden transition-all">
 
-                        {/* Avatar */}
-                        <div className="flex-shrink-0 relative mx-auto md:mx-0">
-                            <img
-                                src={tutorsData?.find(t => t.email === user.email)?.photo || 'https://via.placeholder.com/150'}
-                                alt="Tutor Avatar"
-                                className="w-40 h-40 md:w-48 md:h-48 rounded-full border-4 border-primary shadow-lg object-cover"
-                            />
+                        {/* Top Section: Avatar & Basic Info */}
+                        <div className="bg-primary/10 flex flex-col md:flex-row items-center p-6 md:p-10 gap-6 ">
+                            {/* Avatar */}
+                            <div className="flex-shrink-0">
+                                <img
+                                    src={tutor?.photo || 'https://via.placeholder.com/150'}
+                                    alt="Tutor Avatar"
+                                    className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-primary shadow-lg object-cover"
+                                />
+                            </div>
+
+                            {/* Name, Role & Email */}
+                            <div className="flex-1 space-y-2 text-left">
+                                <h2 className="text-2xl md:text-3xl font-bold">{tutor?.name || 'Tutor Name'}</h2>
+                                <p className="text-primary md:text-lg">Speciality: {tutor?.speciality || 'Tutor'}</p>
+                                <p className="md:text-lg flex items-center gap-2">📧 {user.email}</p>
+                            </div>
                         </div>
 
-                        {/* Info */}
-                        <div className="flex-1 space-y-3 text-center md:text-left">
-                            <h2 className="text-3xl font-bold text-primary">{tutorsData?.find(t => t.email === user.email)?.name || 'Tutor Name'}</h2>
-                            <p className=""><strong>Email:</strong> {user.email}</p>
-                            <p className=""><strong>Speciality:</strong> {tutorsData?.find(t => t.email === user.email)?.speciality}</p>
-                            <p className=""><strong>Experience:</strong> {tutorsData?.find(t => t.email === user.email)?.experience} years</p>
-
-                            {/* Education */}
-                            <div className="bg-base-100 p-4 rounded-xl shadow-sm border border-primary/20">
-                                <h3 className="text-xl font-semibold text-primary mb-2">Education</h3>
-                                <p><strong>Degree:</strong> {tutorsData?.find(t => t.email === user.email)?.education?.degree}</p>
-                                <p><strong>Institution:</strong> {tutorsData?.find(t => t.email === user.email)?.education?.institution}</p>
-                                <p><strong>Year:</strong> {tutorsData?.find(t => t.email === user.email)?.education?.year}</p>
-                                <p><strong>GPA:</strong> {tutorsData?.find(t => t.email === user.email)?.education?.gpa}</p>
-                            </div>
-
-                            {/* Bio */}
-                            <div className="bg-base-100 p-4 rounded-xl shadow-sm border border-primary/20">
-                                <h3 className="text-xl font-semibold text-primary mb-2">Bio & Interests</h3>
-                                <p className=" text-sm whitespace-pre-line">
-                                    {tutorsData?.find(t => t.email === user.email)?.bio}
-                                </p>
-                            </div>
-
-                            {/* LinkedIn */}
-                            <a
-                                href={tutorsData?.find(t => t.email === user.email)?.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-block mt-2 text-primary font-semibold hover:underline"
+                        {/* Dropdown Button */}
+                        <div className="p-6 md:p-8 border-t border-primary/20">
+                            <button
+                                onClick={() => setIsOpen(!isOpen)}
+                                className="w-full text-left text-xl md:text-2xl font-semibold text-primary flex justify-between items-center"
                             >
-                                Connect on LinkedIn
-                            </a>
+                                {isOpen ? 'Hide Details ▲' : 'Show Details ▼'}
+                            </button>
                         </div>
+
+                        {/* Collapsible Content */}
+                        {isOpen && (
+                            <div className="bg-base-100 p-6 md:p-8 border-t border-primary/20 text-left space-y-6">
+
+                                {/* Education & Experience */}
+                                <div className="space-y-4 md:space-y-6">
+                                    <div className="space-y-1">
+                                        <h3 className="text-xl md:text-2xl font-semibold text-primary flex items-center gap-2">🎓 Education</h3>
+                                        <p className="text-sm md:text-base">
+                                            - {tutor?.education?.degree}, {tutor?.education?.institution} ({tutor?.education?.year})
+                                        </p>
+                                        <p className="text-sm md:text-base">
+                                            - GPA: {tutor?.education?.gpa}
+                                        </p>
+                                    </div>
+
+                                    <div className="space-y-1">
+                                        <h3 className="text-xl md:text-2xl font-semibold text-primary flex items-center gap-2">🧪 Experience</h3>
+                                        <p className="text-sm md:text-base">- {tutor?.experience} years</p>
+                                    </div>
+                                </div>
+
+                                {/* Bio & Interests */}
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-semibold text-primary flex items-center gap-2">📝 Bio & Interests</h3>
+                                    <p className="text-sm md:text-base mt-2 whitespace-pre-line">
+                                        {tutor?.bio || 'No bio available.'}
+                                    </p>
+                                </div>
+
+                                {/* LinkedIn */}
+                                {tutor?.linkedin && (
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-lg">🔗</span>
+                                        <a
+                                            href={tutor.linkedin}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-primary font-semibold hover:underline"
+                                        >
+                                            Connect: LinkedIn
+                                        </a>
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
+
+
 
 
                     <div className='md:flex mt-10 gap-6'>
@@ -326,7 +384,7 @@ const DashboardHome = () => {
 
                         {/* Pie Chart */}
                         <div className="md:flex-1">
-                            <h3 className="text-xl font-bold text-primary mb-4 text-left">Tutor Pie Chart</h3>
+                            <h3 className="text-xl font-bold text-primary mb-4 ">Tutor Pie Chart</h3>
                             {/* Pie Chart */}
                             <ResponsiveContainer width="100%" height={250}>
                                 <PieChart>
@@ -377,23 +435,34 @@ const DashboardHome = () => {
             {/* Student Stats */}
             {role === 'student' && (
                 <div className="mt-10 space-y-8">
-                    <div className="bg-primary/10 rounded-3xl p-6 md:p-10 shadow-lg border border-primary/30 flex flex-col md:flex-row gap-8 items-center">
+                    <div className=" mx-auto bg-base-100 rounded-3xl shadow-lg border border-primary/30 overflow-hidden">
 
-                        {/* Avatar */}
-                        <div className="flex-shrink-0 relative">
-                            <img
-                                src={profileInfo.photo}
-                                alt="Student Avatar"
-                                className="w-40 h-40 md:w-48 md:h-48 rounded-full border-4 border-primary shadow-lg object-cover"
-                            />
+                        {/* Top Section: Avatar & Basic Info */}
+                        <div className="bg-primary/10 flex flex-col md:flex-row items-center md:items-start p-6 gap-6">
+
+                            {/* Avatar */}
+                            <div className="flex-shrink-0">
+                                <img
+                                    src={profileInfo.photo || 'https://via.placeholder.com/150'}
+                                    alt="Student Avatar"
+                                    className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-primary shadow-lg object-cover"
+                                />
+                            </div>
+
+                            {/* Name & Role */}
+                            <div className="flex-1 flex flex-col justify-center text-left space-y-2">
+                                <h2 className="text-2xl md:text-3xl font-bold text-primary">
+                                    {profileInfo.name || user.displayName || 'Student Name'}
+                                </h2>
+                                <p className="text-gray-700 md:text-lg font-medium">Student</p>
+                                <p className="flex items-center gap-2 md:text-lg">📧 {user.email}</p>
+                                <p className="flex items-center gap-2 md:text-lg">
+                                    🗓 Account Created: {new Date(profileInfo.createdAt).toLocaleDateString()}
+                                </p>
+                            </div>
+
                         </div>
 
-                        {/* Info */}
-                        <div className="flex-1 space-y-3 text-center md:text-left">
-                            <h2 className="text-3xl font-bold text-primary">{user.displayName || profileInfo.name}</h2>
-                            <p className=""><strong>Email:</strong> {user.email}</p>
-                            <p className=""><strong>Account Created:</strong> {new Date(profileInfo.createdAt).toLocaleDateString()}</p>
-                        </div>
                     </div>
 
                     {/* Student Stats Cards */}
@@ -409,7 +478,7 @@ const DashboardHome = () => {
                         <Link to={'/dashboard/manage-notes'}>
                             <div className="bg-primary/20 shadow-md rounded-2xl p-6 text-center border border-primary hover:shadow-xl transition">
                                 <FaStickyNote className="text-4xl text-primary mx-auto mb-2" />
-                                <h2 className="text-2xl font-bold">{enrolledSessions}</h2>
+                                <h2 className="text-2xl font-bold">{notes?.length}</h2>
                                 <p className="">Manage Notes</p>
                             </div>
                         </Link>
@@ -417,7 +486,7 @@ const DashboardHome = () => {
                         <Link to={'/dashboard/study-materials'}>
                             <div className="bg-primary/20 shadow-md rounded-2xl p-6 text-center border border-primary hover:shadow-xl transition">
                                 <FaFileAlt className="text-4xl text-primary mx-auto mb-2" />
-                                <h2 className="text-2xl font-bold">{enrolledSessions}</h2>
+                                <h2 className="text-2xl font-bold">{materials?.length}</h2>
                                 <p className="">View Study Materials</p>
                             </div>
                         </Link>

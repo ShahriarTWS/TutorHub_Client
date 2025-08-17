@@ -101,7 +101,7 @@ const CreateStudySession = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-8 bg-base-200 rounded-lg shadow">
+        <div className="max-w-4xl mx-auto p-8 bg-base-200 rounded-lg shadow my-8">
             <h2 className="text-3xl font-bold mb-6 text-center text-primary">Create Study Session</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
 

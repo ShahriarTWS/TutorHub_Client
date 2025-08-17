@@ -183,9 +183,15 @@ const Navbar = () => {
                             </ul>
                         </div>
                     ) : (
-                        <Link to="/login" className="btn btn-primary">
-                            Login
-                        </Link>
+                        <div className='flex gap-2'>
+                            <Link to="/login" className="btn btn-primary md:text-base">
+                                Login
+                            </Link>
+
+                            <Link to="/register" className="btn bg-base-100 hover:border hover:border-primary md:text-base hidden md:flex">
+                                Register
+                            </Link>
+                        </div>
                     )}
                 </div>
             </div>

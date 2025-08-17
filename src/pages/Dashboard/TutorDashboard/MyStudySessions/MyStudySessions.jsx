@@ -70,9 +70,9 @@ const MyStudySessions = () => {
             ) : sessions.length === 0 ? (
                 <p className="text-center">You have not created any study sessions yet.</p>
             ) : (
-                <table className="table w-full border border-gray-300">
+                <table className="table w-full border border-gray-200/20">
                     <thead>
-                        <tr className="bg-base-200">
+                        <tr className="bg-primary text-white">
                             <th>Title</th>
                             <th>Status</th>
                             <th>Registration Period</th>

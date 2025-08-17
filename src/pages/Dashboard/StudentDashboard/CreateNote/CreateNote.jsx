@@ -47,7 +47,7 @@ const CreateNote = () => {
     };
 
     return (
-        <div className="max-w-3xl mx-auto p-6 bg-base-200 rounded shadow-md">
+        <div className="max-w-3xl mx-auto p-6 bg-base-200 rounded shadow-md my-8">
             <h2 className="text-2xl font-bold mb-6 text-center">Create a New Note</h2>
 
             {message && (
